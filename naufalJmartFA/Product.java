@@ -21,6 +21,7 @@ public class Product
          this.priceTag = priceTag;
          this.category = category;
          this.id = idCounter;
+         rating = new ProductRating();
          idCounter++;
      }
     

@@ -30,7 +30,7 @@ public class PriceTag
         if (discount == 100.0d){
             return 0.0d;
         }else{
-            return (price * (1 - discount/100));
+            return (price * (1 - discount/100.0d));
         }
     }
     
