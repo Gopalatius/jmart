@@ -16,6 +16,7 @@ public class PriceTag
     
     public PriceTag(double price){
         this.price = price;
+        this.discount = 0.0d;
     }
     
     public PriceTag(double price, double discount){
