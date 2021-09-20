@@ -37,9 +37,9 @@ public class Coupon
     public double apply(PriceTag priceTag){
         used = true;
         if (type == Type.DISCOUNT){
-            return getAdjustedPrice() * (1 - cut/100.0d);
+            return priceTag.getAdjustedPrice() * (1 - cut/100.0d);
         }else{
-            return getAdjustedPrice() - cut;
+            return priceTag.getAdjustedPrice() - cut;
         }
     }
 }
