@@ -34,7 +34,19 @@ public class ShipmentDuration
     }
     
     public boolean isDuration(ShipmentDuration reference){
-        return false;
+        if (reference == ShipmentDuration.INSTANT){
+            return (((bit & (1 << 0)) >> 0)) == 1;
+        }else if (reference == ShipmentDuration.SAME_DAY){
+            return (((bit & (1 << 1)) >> 1)) == 1;
+        }else if (reference == ShipmentDuration.SAME_DAY){
+            return (((bit & (1 << 2)) >> 2)) == 1;
+        }else if (reference == ShipmentDuration.SAME_DAY){
+            return (((bit & (1 << 3)) >> 3)) == 1;
+        }else if (reference == ShipmentDuration.SAME_DAY){
+            return (((bit & (1 << 4)) >> 4)) == 1;
+        } else{
+            return false;
+        }
     }
     
     

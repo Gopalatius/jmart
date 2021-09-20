@@ -22,4 +22,7 @@ public class Jmart {
         return null;
         
     }
+    public static ShipmentDuration createShipmentDuration(){
+        return null;
+    }
 }
