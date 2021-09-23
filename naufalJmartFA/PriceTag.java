@@ -4,11 +4,11 @@ package naufalJmartFA;
 
 public class PriceTag
 {
-    public final double COMMISSION_MULTIPLIER = 0.05d;
+    public static final double COMMISSION_MULTIPLIER = 0.05d;
     
-    public final double BOTTOM_PRICE = 20000.0d;
+    public static final double BOTTOM_PRICE = 20000.0d;
     
-    public final double BOTTOM_FEE = 1000.0d;
+    public static final double BOTTOM_FEE = 1000.0d;
     
     public double discount;
     
@@ -24,7 +24,7 @@ public class PriceTag
         this.discount = discount;
     }
     
-    public double getDiscountedPrice(){
+    private double getDiscountedPrice(){
         if (discount > 100.0d){
             discount = 100.0d;
         }
