@@ -22,17 +22,13 @@ public class Coupon
         this.cut = cut;
         this.type = type;
         this.minimum = minimum;
-        used = false;
+        this.used = false;
     }
     public boolean isUsed(){
-        return used;
+        return this.used;
     }
     public boolean canApply(PriceTag priceTag){
-        if (priceTag.getAdjustedPrice() >= minimum && used == false ){
-            return true;
-        }else{
-            return false;
-        }
+        return (priceTag.getAdjustedPrice() >= minimum && used == false );
     }
     public double apply(PriceTag priceTag){
         used = true;
