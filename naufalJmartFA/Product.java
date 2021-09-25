@@ -21,12 +21,13 @@ public class Product extends Recognizable
          this.conditionUsed = conditionUsed;
          this.priceTag = priceTag;
          this.category = category;
-         this.storeId = storeID;
+         this.storeId = storeId;
          rating = new ProductRating();
      }
     public Product (int id, Store store, String name, int weight, boolean
     conditionUsed, PriceTag priceTag, ProductCategory category){
-        super(id,store);
+        super(id);
+        this.storeId = store.id;
         this.name = name;
          this.weight = weight;
          this.conditionUsed = conditionUsed;
