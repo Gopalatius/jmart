@@ -4,6 +4,10 @@ package naufalJmartFA;
 public interface FileParser
 {
     boolean read(String content);
-    public boolean write(Object content);
-    public Object newInstance(String content);
+    default boolean write(Object content){
+        return false;
+    }
+    static Object newInstance(String content){
+        return null;
+    }
 }

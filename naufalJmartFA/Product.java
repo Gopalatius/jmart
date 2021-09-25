@@ -2,7 +2,7 @@ package naufalJmartFA;
 
 
 
-public class Product extends Recognizable
+public class Product extends Recognizable implements FileParser
 {
 
     public String name;
@@ -13,8 +13,7 @@ public class Product extends Recognizable
     public ProductRating rating;
     public int storeId;
     
-    public Product(int id, int storeId, String name, int weight, boolean 
-    conditionUsed, PriceTag priceTag, ProductCategory category){
+    public Product(int id, int storeId, String name, int weight, boolean conditionUsed, PriceTag priceTag, ProductCategory category){
          super(id);
          this.name = name;
          this.weight = weight;
@@ -22,10 +21,9 @@ public class Product extends Recognizable
          this.priceTag = priceTag;
          this.category = category;
          this.storeId = storeId;
-         rating = new ProductRating();
+         this.rating = new ProductRating();
      }
-    public Product (int id, Store store, String name, int weight, boolean
-    conditionUsed, PriceTag priceTag, ProductCategory category){
+    public Product (int id, Store store, String name, int weight, boolean conditionUsed, PriceTag priceTag, ProductCategory category){
         super(id);
         this.storeId = store.id;
         this.name = name;
@@ -33,8 +31,10 @@ public class Product extends Recognizable
          this.conditionUsed = conditionUsed;
          this.priceTag = priceTag;
          this.category = category;
-         this.storeId = storeID;
-         rating = new ProductRating();
+         this.rating = new ProductRating();
+    }
+    public boolean read(String content){
+        return false;
     }
     
 }

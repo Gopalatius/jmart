@@ -3,7 +3,7 @@ package naufalJmartFA;
 
 
 
-public class Coupon
+public class Coupon extends Recognizable
 {
     public enum Type
     {
@@ -17,6 +17,7 @@ public class Coupon
     private boolean used;
     
     public Coupon (String name, int code, Type type, double cut, double minimum){
+        super(code);
         this.name = name;
         this.code = code;
         this.cut = cut;
