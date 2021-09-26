@@ -27,11 +27,11 @@ public class Product extends Recognizable implements FileParser
         super(id);
         this.storeId = store.id;
         this.name = name;
-         this.weight = weight;
-         this.conditionUsed = conditionUsed;
-         this.priceTag = priceTag;
-         this.category = category;
-         this.rating = new ProductRating();
+        this.weight = weight;
+        this.conditionUsed = conditionUsed;
+        this.priceTag = priceTag;
+        this.category = category;
+        this.rating = new ProductRating();
     }
     public boolean read(String content){
         return false;
