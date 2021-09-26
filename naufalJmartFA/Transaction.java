@@ -24,6 +24,13 @@ public abstract class Transaction extends Recognizable
         super(id);
         this.buyerId = buyer.id;
         this.storeId = store.id;
+        this.rating = Rating.NONE;
+    }
+    public boolean validate(){
+        return false;
+    }
+    public Transaction perform(){
+        return null;
     }
 }
 
