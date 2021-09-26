@@ -19,14 +19,14 @@ public class Complaint extends Transaction implements FileParser
         this.paymentId = paymentId;
         this.desc = desc;
     }
-    public boolean read (String content){
+    public boolean validate (){
         return false;
     }
-    public boolean write (Object content){
-        return false;
-    }
-    public Object newInstance(String content){
+    public Transaction perform(){
         return null;
+    }
+    public boolean read(String content){
+        return false;
     }
     
 }
