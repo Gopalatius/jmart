@@ -10,14 +10,12 @@ public class Jmart {
         return null;
     }
     public static Coupon createCoupon(){
-        Coupon coupon = new Coupon("Diskon hehe",123,Coupon.Type.DISCOUNT,
-        50,30000);
-        return coupon;
+        
+        return null;
         
     }
     public static ShipmentDuration createShipmentDuration(){
-        ShipmentDuration shipmentDuration = new ShipmentDuration(ShipmentDuration.NEXT_DAY,
-        ShipmentDuration.REGULER);
-        return shipmentDuration;
+        
+        return null;
     }
 }
