@@ -3,7 +3,7 @@ package naufalJmartFA;
 
 
 
-public class Coupon extends Recognizable
+public class Coupon extends Recognizable implements FileParser
 {
     public enum Type
     {
@@ -16,7 +16,7 @@ public class Coupon extends Recognizable
     public final double minimum;
     private boolean used;
     
-    public Coupon (String name, int code, Type type, double cut, double minimum){
+    public Coupon (int code, String name, Type type, double cut, double minimum){
         super(code);
         this.name = name;
         this.code = code;
@@ -32,11 +32,15 @@ public class Coupon extends Recognizable
         return (priceTag.getAdjustedPrice() >= minimum && used == false );
     }
     public double apply(PriceTag priceTag){
-        used = true;
+        this.used = true;
         if (type == Type.DISCOUNT){
             return priceTag.getAdjustedPrice() * (1 - cut/100.0d);
         }else{
             return priceTag.getAdjustedPrice() - cut;
         }
     }
+    public boolean read (String content){
+        return false;
+    }
+    
 }
