@@ -13,13 +13,19 @@ public class Payment extends Transaction implements FileParser
         this.shipmentDuration = shipmentDuration;
         
     }
+    public Payment (int id, int buyerId, int storeId, int productId,
+    ShipmentDuration shipmentDuration){
+        super(id, buyerId, storeId);
+        this.productId = productId;
+        this.shipmentDuration = shipmentDuration;
+    }
     public boolean read (String content){
         return false;
     }
-    public boolean write (Object content){
+    public boolean validate(){
         return false;
     }
-    public Object newInstance(String content){
+    public Transaction perform(){
         return null;
     }
 }
