@@ -2,13 +2,13 @@ package naufalJmartFA;
 
 
 
-public class Complaint extends Transaction implements FileParser
+public class Complaint extends Recognizable implements FileParser
 {
     public String date;
     public String desc;
     
     public Complaint (int id, String desc){
-        super(id, 0, 0);
+        super(id);
         this.desc = desc;
         this.date = "";
     }

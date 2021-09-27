@@ -2,30 +2,27 @@ package naufalJmartFA;
 
 
 
-public class Payment extends Transaction implements FileParser
+public class Payment extends Invoice implements Transactor
 {
-    public int productId;
-    public ShipmentDuration shipmentDuration;
-    public Payment (int id, int buyerId, Product product, ShipmentDuration
-    shipmentDuration){
-        super(id,buyerId, 0);
-        this.productId = product.id;
-        this.shipmentDuration = shipmentDuration;
+    public int productCount;
+    public Shipment shipment;
+    
+    public Payment (int id, int buyerId, int productId, int productCount,
+    Shipment shipment){
+        super(id, buyerId, productId);
+        this.productCount = productCount;
+        this.shipment = shipment;
         
     }
-    public Payment (int id, int buyerId, int storeId, int productId,
-    ShipmentDuration shipmentDuration){
-        super(id, buyerId, storeId);
-        this.productId = productId;
-        this.shipmentDuration = shipmentDuration;
-    }
+    
     public boolean read (String content){
         return false;
     }
     public boolean validate(){
         return false;
     }
-    public Transaction perform(){
+    public Invoice perform(){
         return null;
     }
+    
 }
