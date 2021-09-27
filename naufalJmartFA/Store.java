@@ -25,7 +25,7 @@ public class Store extends Recognizable implements FileParser
         return false;
     }
     public String toString(){
-        return "name: "+name+"\naddress: "+address+"phoneNumber: "+phoneNumber;
+        return "name: "+name+"\naddress: "+address+"\nphoneNumber: "+phoneNumber;
     }
 
 }

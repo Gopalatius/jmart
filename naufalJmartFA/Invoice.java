@@ -24,7 +24,7 @@ public class Invoice extends Recognizable implements FileParser
         super(id);
         this.buyerId = buyerId;
         this.productId = productId;
-        this.complaintId = complaintId;
+        this.complaintId = 0;
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
         this.date = "";
