@@ -19,6 +19,6 @@ public class Account extends Recognizable implements FileParser
         return false;
     }
     public String toString(){
-        return "name: Ramadhan\nemail: ramdhanganteng@gmail.com\npassword: gu3G4ntEnG";
+        return "name: "+name+"\nemail: "+email+"\npassword: "+password;
     }
 }

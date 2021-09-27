@@ -27,6 +27,7 @@ public class Invoice extends Recognizable implements FileParser
         this.complaintId = complaintId;
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
+        this.date = "";
     }
     public boolean read (String content){
         return false;

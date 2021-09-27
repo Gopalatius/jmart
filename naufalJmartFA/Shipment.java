@@ -4,7 +4,7 @@ package naufalJmartFA;
 
 public class Shipment implements FileParser
 {
-     class MultiDuration
+     public class MultiDuration
     {
         public final byte bit;
         
@@ -21,7 +21,7 @@ public class Shipment implements FileParser
             return ((this.bit & reference.bit) != 0);
         }
     }
-    class Duration
+    public class Duration
     {
         public final Duration INSTANT = new Duration((byte)(1 << 0));
         public final Duration SAME_DAY = new Duration((byte)(1 << 1));

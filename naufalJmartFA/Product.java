@@ -14,7 +14,7 @@ public class Product extends Recognizable implements FileParser
     public int storeId;
     
     public Product(int id, int storeId, String name, int weight, boolean conditionUsed, 
-    PriceTag priceTag, ProductCategory category, MultiDuration multiDuration){
+    PriceTag priceTag, ProductCategory category, Shipment.MultiDuration multiDuration){
          super(id);
          this.name = name;
          this.weight = weight;
@@ -27,6 +27,11 @@ public class Product extends Recognizable implements FileParser
     
     public boolean read(String content){
         return false;
+    }
+    public String toString(){
+        return "Name: "+name+"\nWeight: "+weight+"\nconditionUsed: "+conditionUsed+
+        "\npriceTag: "+priceTag+"\ncategory: "+category+"\nrating: "+rating+
+        "\nstoreId: "+storeId;
     }
     
 }
