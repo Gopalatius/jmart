@@ -21,13 +21,13 @@ public class Shipment implements FileParser
             return ((this.bit & reference.bit) != 0);
         }
     }
-    public class Duration
+    public static class Duration
     {
-        public final Duration INSTANT = new Duration((byte)(1 << 0));
-        public final Duration SAME_DAY = new Duration((byte)(1 << 1));
-        public final Duration NEXT_DAY = new Duration((byte)(1 << 2));
-        public final Duration REGULER = new Duration((byte)(1 << 3));
-        public final Duration KARGO = new Duration((byte)(1 << 4));
+        public final static Duration INSTANT = new Duration((byte)(1 << 0));
+        public final static Duration SAME_DAY = new Duration((byte)(1 << 1));
+        public final static Duration NEXT_DAY = new Duration((byte)(1 << 2));
+        public final static Duration REGULER = new Duration((byte)(1 << 3));
+        public final static Duration KARGO = new Duration((byte)(1 << 4));
         
         public final byte bit;
         
