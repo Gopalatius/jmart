@@ -2,7 +2,7 @@ package naufalJmartFA;
 
 
 
-public class Invoice extends Recognizable implements FileParser
+public abstract class Invoice extends Recognizable implements FileParser
 {
     public enum Status
     {
@@ -32,7 +32,5 @@ public class Invoice extends Recognizable implements FileParser
     public boolean read (String content){
         return false;
     }
-    public double getTotalPay(double something){
-        return 0;
-    }
+    public abstract double getTotalPay(double something);
 }
