@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Store extends Recognizable implements FileParser
 {
-    public static final String REGEX_NAME = "";
+    public static final String REGEX_NAME = "^[A-Z]{4,20}";
     public static final String REGEX_PHONE = "[0-9]{9,12}";
     public String name;
     public String address;
