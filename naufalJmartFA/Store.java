@@ -29,8 +29,11 @@ public class Store extends Recognizable implements FileParser
         Matcher matcherPhone = patternPhone.matcher(this.phoneNumber);
         boolean matchFoundPhone = matcherPhone.find();
         
+        Pattern patternName = Pattern.compile(REGEX_NAME);
+        Matcher matcherName = patternName.matcher(this.name);
+        boolean matchFoundName = matcherName.find();
         
-        return matchFoundPhone;
+        return matchFoundPhone && matchFoundName;
     }
     public boolean read(String content){
         return false;
