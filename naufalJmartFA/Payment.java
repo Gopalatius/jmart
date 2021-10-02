@@ -24,5 +24,8 @@ public class Payment extends Invoice implements Transactor
     public Invoice perform(){
         return null;
     }
+    public double getTotalPay (){
+        return 0.0d;
+    }
     
 }

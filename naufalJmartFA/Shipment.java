@@ -1,10 +1,12 @@
 package naufalJmartFA;
 
-
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Shipment implements FileParser
 {
-     public class MultiDuration
+     public static class MultiDuration
     {
         public final byte bit;
         
@@ -28,11 +30,25 @@ public class Shipment implements FileParser
         public final static Duration NEXT_DAY = new Duration((byte)(1 << 2));
         public final static Duration REGULER = new Duration((byte)(1 << 3));
         public final static Duration KARGO = new Duration((byte)(1 << 4));
-        
+        public final static SimpleDateFormat ESTIMATION_FORMAT = new
+        SimpleDateFormat("E MMMM dd yyyy");
         public final byte bit;
         
         private Duration(byte bit){
             this.bit =  bit;
+        }
+        public String getEstimatedArrival (Date reference){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(reference);
+            if (this.bit == (byte)(1 << 4)){
+                calendar.add(Calendar.DATE,5);
+            }else if (this.bit == (byte)(1 << 3)){
+                calendar.add(Calendar.DATE,2);
+            }else if (this.bit == (byte)(1 << 2)){
+                calendar.add(Calendar.DATE, 1);
+            }
+            String date = ESTIMATION_FORMAT.format(calendar);
+            return date;
         }
     }
     public String address;

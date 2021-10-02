@@ -1,5 +1,6 @@
 package naufalJmartFA;
 
+import java.util.Date;
 
 
 public abstract class Invoice extends Recognizable implements FileParser
@@ -13,7 +14,7 @@ public abstract class Invoice extends Recognizable implements FileParser
         NONE, BAD, NEUTRAL, GOOD;
     }
     
-    public String date;
+    public Date date;
     public int buyerId;
     public int productId;
     public int complaintId;
@@ -27,10 +28,10 @@ public abstract class Invoice extends Recognizable implements FileParser
         this.complaintId = 0;
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
-        this.date = "";
+        this.date = new Date();
     }
     public boolean read (String content){
         return false;
     }
-    public abstract double getTotalPay(double something);
+    public abstract double getTotalPay();
 }
