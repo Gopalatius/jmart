@@ -10,4 +10,4 @@ VERSION or DATE:
 HOW TO START THIS PROJECT:
 AUTHORS:
 USER INSTRUCTIONS:
-abis reset windows test push
+Wadidaw apakah berbeda? sekarang 18:58 WIB
