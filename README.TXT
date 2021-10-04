@@ -10,4 +10,4 @@ VERSION or DATE:
 HOW TO START THIS PROJECT:
 AUTHORS:
 USER INSTRUCTIONS:
-Wadidaw apakah berbeda? sekarang 18:58 WIB
+apakah beda? sekarang 19.00 WIB
