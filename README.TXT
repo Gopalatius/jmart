@@ -10,4 +10,4 @@ VERSION or DATE:
 HOW TO START THIS PROJECT:
 AUTHORS:
 USER INSTRUCTIONS:
-testing push menggunakan skrip notepad
+abis reset windows test push
