@@ -9,10 +9,9 @@ public abstract class Recognizable implements Comparable<Recognizable>
     protected Recognizable(int id){
         this.id = id;
     }
-    @Override
+
     public int compareTo(Recognizable other){
-//        return Recognizable.compareTo(other);
-        return 0;
+        return Integer.compare(this.id, other.id);
     }
 
     public boolean equals(Object other){
@@ -27,16 +26,12 @@ public abstract class Recognizable implements Comparable<Recognizable>
     public boolean equals (Recognizable other){
         return (this.id == other.id);
     }
-    public static <T> int getClosingId(Class<T> clazz){
-//        if (clazz instanceof Recognizable){
-//            return 0;
-//        }
+    public static <T extends Recognizable> int getClosingId(Class<T> clazz){
+       
         return 0;
     }
-    public static <T> int setClosingId(Class<T> clazz, int id){
-//        if (clazz instanceof Recognizable){
-//            return 0;
-//        }
+    public static <T extends Recognizable> int setClosingId(Class<T> clazz, int id){
+
         return 0;
     }
 
