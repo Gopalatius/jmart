@@ -106,6 +106,60 @@ public class Algorithm {
         }
         return false;
     }
-
+    public static <T> T find (T[] array, T value){
+        for (T i: array){
+            if (i == value){
+                return i;
+            }
+        }
+        return null;
+    }
+    public static <T> T find (Iterable<T> iterable, T value){
+        for (T i: iterable){
+            if (i == value){
+                return i;
+            }
+        }
+        return null;
+    }
+    public static <T> T find (Iterator<T> iterator, T value){
+        int counter;
+        T temp;
+        for (counter = 0; iterator.hasNext();counter++){
+            temp = iterator.next();
+            if (value == temp){
+                return temp ;
+            }
+        }
+        return null;
+    }
+    public static <T> T find (T[] array, Predicate<T> pred){
+        for (T i: array){
+            if (pred.test(i)){
+                return i;
+            }
+        }
+        return null;
+    }
+    public static <T> T find (Iterable<T> iterable, Predicate<T> pred){
+        for (T i: iterable){
+            if (pred.test(i)){
+                return i;
+            }
+        }
+        return null;
+    }
+    public static <T> T find (Iterator<T> iterator, Predicate<T> pred){
+        int counter;
+        T temp;
+        for (counter = 0; iterator.hasNext();counter++){
+            temp = iterator.next();
+            if (pred.test(temp)){
+                return temp ;
+            }
+        }
+        return null;
+    }
+    
 
 }
