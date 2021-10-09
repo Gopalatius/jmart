@@ -1,4 +1,5 @@
 package naufalJmartFA;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.Collection;
@@ -163,10 +164,10 @@ public class Algorithm {
         return null;
     }
     public static <T> T max (Collection <? extends T> first, Comparator <? super T> second){
-        return null;
+        return Collections.max(first, second);
     }
     public static <T> T min (Collection <? extends T> first, Comparator <? super T> second){
-        return null;
+        return Collections.min(first,second);
     }
 
 }
