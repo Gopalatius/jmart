@@ -16,7 +16,7 @@ public class Coupon extends Recognizable implements FileParser
     public final double minimum;
     private boolean used;
     
-    public Coupon (int code, String name, Type type, double cut, double minimum){
+    public Coupon ( String name, int code, Type type, double cut, double minimum){
         super(code);
         this.name = name;
         this.code = code;
@@ -28,15 +28,15 @@ public class Coupon extends Recognizable implements FileParser
     public boolean isUsed(){
         return this.used;
     }
-    public boolean canApply(PriceTag priceTag){
-        return (priceTag.getAdjustedPrice() >= minimum && used == false );
+    public boolean canApply(Treasury treasury){
+        return (treasury.getAdjustedPrice(2000,20) >= minimum && used == false );
     }
-    public double apply(PriceTag priceTag){
+    public double apply(Treasury treasury){
         this.used = true;
         if (type == Type.DISCOUNT){
-            return priceTag.getAdjustedPrice() * (1 - cut/100.0d);
+            return treasury.getAdjustedPrice(2000,20) * (1 - cut/100.0d);
         }else{
-            return priceTag.getAdjustedPrice() - cut;
+            return treasury.getAdjustedPrice(2000,20) - cut;
         }
     }
     public boolean read (String content){
