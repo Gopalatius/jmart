@@ -256,8 +256,86 @@ public class Algorithm {
         return terbesar;
     }
 
-    public static <T> T min (Collection <? extends T> first, Comparator <? super T> second){
-        return Collections.min(first,second);
+    public static <T extends Number> T min (T first, T second){
+        if (first.doubleValue() < second.doubleValue()){
+            return first;
+        }else{
+            return second;
+        }
     }
 
+    public static <T extends Number> T min (T[] array){
+        T terkecil = array[0];
+        for (T i : array){
+            if (i.doubleValue() < terkecil.doubleValue()){
+                terkecil = i;
+            }
+        }
+        return terkecil;
+    }
+    public static <T extends Number> T min (Iterable<T> iterable) {
+        boolean flag = false;
+        T terkecil = null;
+        for (T i : iterable) {
+            if (!flag) {
+                flag = true;
+                terkecil = i;
+            } else if (i.doubleValue() < terkecil.doubleValue()) {
+                terkecil = i;
+            }
+        }
+        return terkecil;
+    }
+    public static <T extends Number> T min (Iterator<T> iterator) {
+
+        T terkecil = null;
+        T temp = null;
+        for (int counter = 0; iterator.hasNext(); counter++){
+            temp = iterator.next();
+            if (counter == 0){
+                terkecil = temp;
+            }else if(temp.doubleValue() < terkecil.doubleValue()){
+                terkecil = temp;
+            }
+        }
+        return terkecil;
+    }
+    public static <T extends Number> T min (T first, T second, Comparator<?super T> comparator) {
+
+        T terkecil = null;
+        if (comparator.compare(first,second) < 0){
+            terkecil = first;
+        }else{
+            terkecil = second;
+        }
+        return terkecil;
+    }
+    public static <T extends Number> T min (Iterable<T> iterable, Comparator<?super T> comparator) {
+        boolean flag = false;
+        T terkecil = null;
+        for (T i : iterable) {
+            if (!flag) {
+                flag = true;
+                terkecil = i;
+            } else if (comparator.compare(i,terkecil) < 0) {
+                terkecil = i;
+            }
+        }
+        return terkecil;
+    }
+    public static <T extends Number> T min (Iterator<T> iterator, Comparator<?super T> comparator) {
+
+        T terkecil = null;
+        T temp = null;
+        for (int counter = 0; iterator.hasNext(); counter++){
+            temp = iterator.next();
+            if (counter == 0){
+                terkecil = temp;
+            }else if(comparator.compare(temp,terkecil) < 0){
+                terkecil = temp;
+            }
+        }
+        return terkecil;
+    }
+    
 }
