@@ -187,6 +187,7 @@ public class Algorithm {
         for (T i : iterable) {
             if (!flag) {
                 flag = true;
+                terbesar = i;
             } else if (i.doubleValue() > terbesar.doubleValue()) {
                 terbesar = i;
             }
@@ -210,10 +211,51 @@ public class Algorithm {
     public static <T extends Number> T max (T first, T second, Comparator<?super T> comparator) {
 
         T terbesar = null;
-        T temp = null;
-        
+        if (comparator.compare(first,second) > 0){
+            terbesar = first;
+        }else{
+            terbesar = second;
+        }
         return terbesar;
     }
+    public static <T extends Number> T max (T[] array, Comparator<?super T> comparator) {
+
+        T terbesar = array[0];
+        for (T i:array){
+            if (comparator.compare(i,terbesar)>0){
+                terbesar = i;
+            }
+        }
+        return terbesar;
+    }
+    public static <T extends Number> T max (Iterable<T> iterable, Comparator<?super T> comparator) {
+        boolean flag = false;
+        T terbesar = null;
+        for (T i : iterable) {
+            if (!flag) {
+                flag = true;
+                terbesar = i;
+            } else if (comparator.compare(i,terbesar) > 0) {
+                terbesar = i;
+            }
+        }
+        return terbesar;
+    }
+    public static <T extends Number> T max (Iterator<T> iterator, Comparator<?super T> comparator) {
+
+        T terbesar = null;
+        T temp = null;
+        for (int counter = 0; iterator.hasNext(); counter++){
+            temp = iterator.next();
+            if (counter == 0){
+                terbesar = temp;
+            }else if(comparator.compare(temp,terbesar) > 0){
+                terbesar = temp;
+            }
+        }
+        return terbesar;
+    }
+
     public static <T> T min (Collection <? extends T> first, Comparator <? super T> second){
         return Collections.min(first,second);
     }
