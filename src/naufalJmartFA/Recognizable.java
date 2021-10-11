@@ -27,7 +27,7 @@ public abstract class Recognizable implements Comparable<Recognizable>
         return (this.id == other.id);
     }
     public static <T extends Recognizable> int getClosingId(Class<T> clazz){
-       
+
         return 0;
     }
     public static <T extends Recognizable> int setClosingId(Class<T> clazz, int id){
