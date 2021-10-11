@@ -12,6 +12,12 @@ public class Algorithm {
     private Algorithm(){
 
     }
+    /*
+    public static <T extends Number> List<T> collect(T[] array, T value){
+
+    }
+
+     */
     public static <T> int count(T[] array, T value){
         int counter = 0;
         for (T i:array){
@@ -337,5 +343,5 @@ public class Algorithm {
         }
         return terkecil;
     }
-    
+
 }
