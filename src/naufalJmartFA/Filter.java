@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Filter
 {
-    public static ArrayList<PriceTag> filterPriceTag(PriceTag[] list,
+    public static ArrayList<Treasury> filterPriceTag(Treasury[] list,
     int value, boolean less){
-        ArrayList<PriceTag> priceTag = new ArrayList<PriceTag>();
-        for (PriceTag i:list){
+        ArrayList<Treasury> priceTag = new ArrayList<Treasury>();
+        for (Treasury i:list){
             if (less == true){
-                if (i.getAdjustedPrice() < value){
+                if (i.getAdjustedPrice(2000,20) < value){
                     priceTag.add(i);
                 }
             }else{
-                if (i.getAdjustedPrice() >= value){
+                if (i.getAdjustedPrice(2000,20) >= value){
                     priceTag.add(i);
                 }
             }
