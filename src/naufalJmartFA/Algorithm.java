@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Arrays;
+
 
 
 public class Algorithm {
@@ -163,8 +165,54 @@ public class Algorithm {
         }
         return null;
     }
-    public static <T> T max (Collection <? extends T> first, Comparator <? super T> second){
-        return Collections.max(first, second);
+    public static <T extends Number> T max (T first, T second){
+        if (first.doubleValue() > second.doubleValue()){
+            return first;
+        }else{
+            return second;
+        }
+    }
+    public static <T extends Number> T max (T[] array){
+        T terbesar = array[0];
+        for (T i : array){
+            if (i.doubleValue() > terbesar.doubleValue()){
+                terbesar = i;
+            }
+        }
+        return terbesar;
+    }
+    public static <T extends Number> T max (Iterable<T> iterable) {
+        boolean flag = false;
+        T terbesar = null;
+        for (T i : iterable) {
+            if (!flag) {
+                flag = true;
+            } else if (i.doubleValue() > terbesar.doubleValue()) {
+                terbesar = i;
+            }
+        }
+        return terbesar;
+    }
+    public static <T extends Number> T max (Iterator<T> iterator) {
+
+        T terbesar = null;
+        T temp = null;
+        for (int counter = 0; iterator.hasNext(); counter++){
+            temp = iterator.next();
+            if (counter == 0){
+                terbesar = temp;
+            }else if(temp.doubleValue() > terbesar.doubleValue()){
+                terbesar = temp;
+            }
+        }
+        return terbesar;
+    }
+    public static <T extends Number> T max (T first, T second, Comparator<?super T> comparator) {
+
+        T terbesar = null;
+        T temp = null;
+        
+        return terbesar;
     }
     public static <T> T min (Collection <? extends T> first, Comparator <? super T> second){
         return Collections.min(first,second);
