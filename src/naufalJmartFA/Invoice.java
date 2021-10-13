@@ -8,10 +8,10 @@ public abstract class Invoice extends Recognizable
     public enum Status
     {
         WAITING_CONFIRMATION, CANCELLED, ON_PROGRESS, ON_DELIVERY, COMPLAINT,
-        FINISHED, FAILED;
+        FINISHED, FAILED
     }
     public enum Rating{
-        NONE, BAD, NEUTRAL, GOOD;
+        NONE, BAD, NEUTRAL, GOOD
     }
     public class Record{
         public Date date;
@@ -34,9 +34,6 @@ public abstract class Invoice extends Recognizable
         this.rating = Rating.NONE;
         this.status = Status.WAITING_CONFIRMATION;
         this.date = new Date();
-    }
-    public boolean read (String content){
-        return false;
     }
     public abstract double getTotalPay();
 }
