@@ -12,7 +12,7 @@ public class Payment extends Invoice
         this.shipment = shipment;
         
     }
-
+    @Override
     public double getTotalPay (){
         return 0.0d;
     }
