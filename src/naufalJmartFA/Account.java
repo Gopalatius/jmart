@@ -12,19 +12,18 @@ public class Account extends Recognizable
     public String name;
     public String email;
     public String password;
+    public Store store;
+    public double balance;
     
-    public Account(String name, String email, String password){
+    public Account(String name, String email, String password, double balance){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.balance = balance;
+        this.store = null;
     }
     
-    public boolean read(String content){
-        return false;
-    }
-    public String toString(){
-        return "name: "+name+"\nemail: "+email+"\npassword: "+password;
-    }
+
     public boolean validate(){
         Pattern patternEmail = Pattern.compile(this.REGEX_EMAIL);
         Matcher matcherEmail = patternEmail.matcher(this.email);
