@@ -19,7 +19,7 @@ public class Store extends Recognizable
         this.phoneNumber = phoneNumber;
         this.balance = balance;
     }
-    
+
     public boolean validate(){
         Pattern patternPhone = Pattern.compile(REGEX_PHONE);
         Matcher matcherPhone = patternPhone.matcher(this.phoneNumber);
@@ -35,7 +35,8 @@ public class Store extends Recognizable
         return false;
     }
     public String toString(){
-        return "name: "+name+"\naddress: "+address+"\nphoneNumber: "+phoneNumber;
+        return "name: "+name+"\naddress: "+address+"\nphoneNumber: "+phoneNumber+
+                "\nbalance: "+balance ;
     }
 
 }
