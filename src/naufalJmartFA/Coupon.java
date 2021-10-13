@@ -38,5 +38,5 @@ public class Coupon extends Recognizable
             return treasury.getAdjustedPrice(2000,20) - cut;
         }
     }
-   
+
 }
