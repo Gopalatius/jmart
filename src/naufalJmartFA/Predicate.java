@@ -1,5 +1,5 @@
 package naufalJmartFA;
 
 public interface Predicate <T> {
-    public boolean predicate (T arg);
+    boolean predicate (T arg);
 }
