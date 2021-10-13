@@ -1,10 +1,11 @@
 package naufalJmartFA;
-import java.util.Collections;
+
 import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.function.Predicate;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.Arrays;
+
 
 
 
@@ -12,12 +13,13 @@ public class Algorithm {
     private Algorithm(){
 
     }
-    /*
-    public static <T extends Number> List<T> collect(T[] array, T value){
 
-    }
+//    public static <T extends Number> List<T> collect(T[] array, T value){
+//        List<T> list = ()
+//        return
+//    }
 
-     */
+
     public static <T> int count(T[] array, T value){
         int counter = 0;
         for (T i:array){
@@ -83,8 +85,7 @@ public class Algorithm {
         return false;
     }
     public static <T> boolean exists(Iterator<T> iterator, T value){
-        int counter;
-        for (counter = 0; iterator.hasNext();counter++){
+        while (iterator.hasNext()){
             if (value == iterator.next()){
                 return true;
             }
@@ -109,8 +110,8 @@ public class Algorithm {
         return false;
     }
     public static <T> boolean exists(Iterator<T> iterator, Predicate<T> pred){
-       int counter;
-        for (counter = 0; iterator.hasNext();counter++){
+
+        while (iterator.hasNext()){
             if (pred.test(iterator.next())){
                 return true;
             }
@@ -134,9 +135,8 @@ public class Algorithm {
         return null;
     }
     public static <T> T find (Iterator<T> iterator, T value){
-        int counter;
         T temp;
-        for (counter = 0; iterator.hasNext();counter++){
+        while (iterator.hasNext()){
             temp = iterator.next();
             if (value == temp){
                 return temp ;
@@ -161,9 +161,8 @@ public class Algorithm {
         return null;
     }
     public static <T> T find (Iterator<T> iterator, Predicate<T> pred){
-        int counter;
         T temp;
-        for (counter = 0; iterator.hasNext();counter++){
+        while (iterator.hasNext()){
             temp = iterator.next();
             if (pred.test(temp)){
                 return temp ;
@@ -203,7 +202,7 @@ public class Algorithm {
     public static <T extends Number> T max (Iterator<T> iterator) {
 
         T terbesar = null;
-        T temp = null;
+        T temp;
         for (int counter = 0; iterator.hasNext(); counter++){
             temp = iterator.next();
             if (counter == 0){
@@ -216,7 +215,7 @@ public class Algorithm {
     }
     public static <T extends Number> T max (T first, T second, Comparator<?super T> comparator) {
 
-        T terbesar = null;
+        T terbesar;
         if (comparator.compare(first,second) > 0){
             terbesar = first;
         }else{
@@ -250,7 +249,7 @@ public class Algorithm {
     public static <T extends Number> T max (Iterator<T> iterator, Comparator<?super T> comparator) {
 
         T terbesar = null;
-        T temp = null;
+        T temp;
         for (int counter = 0; iterator.hasNext(); counter++){
             temp = iterator.next();
             if (counter == 0){
@@ -295,7 +294,7 @@ public class Algorithm {
     public static <T extends Number> T min (Iterator<T> iterator) {
 
         T terkecil = null;
-        T temp = null;
+        T temp;
         for (int counter = 0; iterator.hasNext(); counter++){
             temp = iterator.next();
             if (counter == 0){
@@ -308,7 +307,7 @@ public class Algorithm {
     }
     public static <T extends Number> T min (T first, T second, Comparator<?super T> comparator) {
 
-        T terkecil = null;
+        T terkecil;
         if (comparator.compare(first,second) < 0){
             terkecil = first;
         }else{
@@ -332,7 +331,7 @@ public class Algorithm {
     public static <T extends Number> T min (Iterator<T> iterator, Comparator<?super T> comparator) {
 
         T terkecil = null;
-        T temp = null;
+        T temp;
         for (int counter = 0; iterator.hasNext(); counter++){
             temp = iterator.next();
             if (counter == 0){
