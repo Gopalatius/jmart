@@ -2,7 +2,7 @@ package naufalJmartFA;
 
 
 
-public abstract class Recognizable implements Comparable<Recognizable>
+public class Recognizable implements Comparable<Recognizable>
 {
     public final int id;
     
