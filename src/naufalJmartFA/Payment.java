@@ -1,7 +1,5 @@
 package naufalJmartFA;
 
-
-
 public class Payment extends Invoice
 {
     public int productCount;
