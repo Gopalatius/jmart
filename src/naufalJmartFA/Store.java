@@ -3,27 +3,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Store extends Recognizable implements FileParser
+public class Store extends Recognizable
 {
     public static final String REGEX_NAME = "^[A-Z]{4,20}";
     public static final String REGEX_PHONE = "[0-9]{9,12}";
     public String name;
     public String address;
     public String phoneNumber;
-    public Store(int accountId, String name, String address, String phoneNumber)
+    public double balance;
+
+    public Store(String name, String address, String phoneNumber, double balance)
     {
-        super(accountId);
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.balance = balance;
     }
-    public Store(Account account, String name, String address, String phoneNumber)
-    {
-        super(account.id);
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-    }
+    
     public boolean validate(){
         Pattern patternPhone = Pattern.compile(REGEX_PHONE);
         Matcher matcherPhone = patternPhone.matcher(this.phoneNumber);

@@ -3,7 +3,7 @@ package naufalJmartFA;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Account extends Recognizable implements FileParser
+public class Account extends Recognizable
 {
     public static final String REGEX_EMAIL = 
     "^[^\\.]*((?!\\.{2,}).)[A-Za-z0-9&~_*]+(?:\\.[A-Za-z0-9&~_*]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[a-zA-Z]";
@@ -13,8 +13,7 @@ public class Account extends Recognizable implements FileParser
     public String email;
     public String password;
     
-    public Account(int id, String name, String email, String password){
-        super(id);
+    public Account(String name, String email, String password){
         this.name = name;
         this.email = email;
         this.password = password;

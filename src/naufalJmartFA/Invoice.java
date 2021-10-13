@@ -3,7 +3,7 @@ package naufalJmartFA;
 import java.util.Date;
 import java.util.ArrayList;
 
-public abstract class Invoice extends Recognizable implements FileParser
+public abstract class Invoice extends Recognizable
 {
     public enum Status
     {
@@ -27,8 +27,7 @@ public abstract class Invoice extends Recognizable implements FileParser
     public Status status;
     public ArrayList<Record> history;
     
-    protected Invoice (int id, int buyerId, int productId){
-        super(id);
+    protected Invoice (int buyerId, int productId){
         this.buyerId = buyerId;
         this.productId = productId;
         this.complaintId = 0;
