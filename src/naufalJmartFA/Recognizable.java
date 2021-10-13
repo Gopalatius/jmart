@@ -6,14 +6,15 @@ public class Recognizable implements Comparable<Recognizable>
 {
     public final int id;
     
-    protected Recognizable(int id){
-        this.id = id;
+    protected Recognizable(){
+        this.id = 0;
     }
 
     public int compareTo(Recognizable other){
         return Integer.compare(this.id, other.id);
     }
 
+    @Override
     public boolean equals(Object other){
         if (other instanceof Recognizable){
             Recognizable recognizable = (Recognizable) other;
