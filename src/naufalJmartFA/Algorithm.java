@@ -18,7 +18,7 @@ public class Algorithm {
 //        List<T> list = ()
 //        return
 //    }
-//    Coba push lewat intellij
+//
 
 
     public static <T> int count(T[] array, T value){
