@@ -11,12 +11,7 @@ import com.google.gson.stream.JsonReader;
 
 
 public class Jmart {
-//    class Country
-//    {
-//        public String name;
-//        public int population;
-//        public List<String> listOfStates;
-//    }
+
 
     public static void main(String[] args){
         // sesuaikan dengan lokasi di sistem anda kepada city.json
