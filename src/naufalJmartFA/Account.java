@@ -3,7 +3,7 @@ package naufalJmartFA;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Account extends Recognizable
+public class Account extends Serializable
 {
     public static final String REGEX_EMAIL = 
     "^[^\\.]*((?!\\.{2,}).)[A-Za-z0-9&~_*]+(?:\\.[A-Za-z0-9&~_*]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[a-zA-Z]";

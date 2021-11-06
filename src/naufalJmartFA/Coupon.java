@@ -3,7 +3,7 @@ package naufalJmartFA;
 
 
 
-public class Coupon extends Recognizable
+public class Coupon extends Serializable
 {
     public enum Type
     {
