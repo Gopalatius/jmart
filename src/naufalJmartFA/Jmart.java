@@ -55,8 +55,12 @@ public class Jmart {
     }
     public static List<Product> read(String filepath) throws FileNotFoundException {
         JsonReader jsonReader = new JsonReader(new FileReader(filepath));
-        ArrayList<Product> arr = new Gson().fromJson(jsonReader,Product[].class);
+        Product[] products = new Gson().fromJson(jsonReader,Product[].class);
+        List<Product> prod = new ArrayList<Product>();
 
-        return arr;
+        for (int i = 0; i < products.length; i++){
+            prod.add(products[i]);
+        }
+        return prod;
     }
 }
