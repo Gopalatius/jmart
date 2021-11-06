@@ -7,7 +7,7 @@ public class Coupon extends Recognizable
 {
     public enum Type
     {
-    DISCOUNT, REBATE;
+    DISCOUNT, REBATE
     }
     public final String name;
     public final int code;
@@ -27,15 +27,15 @@ public class Coupon extends Recognizable
     public boolean isUsed(){
         return this.used;
     }
-    public boolean canApply(Treasury treasury){
-        return (treasury.getAdjustedPrice(2000,20) >= minimum && used == false );
+    public boolean canApply(double price, double discount){
+        return (Treasury.getAdjustedPrice(price,discount) >= minimum && !used );
     }
-    public double apply(Treasury treasury){
+    public double apply(double price, double discount){
         this.used = true;
         if (type == Type.DISCOUNT){
-            return treasury.getAdjustedPrice(2000,20) * (1 - cut/100.0d);
+            return Treasury.getAdjustedPrice(price, discount) * (1 - cut/100.0d);
         }else{
-            return treasury.getAdjustedPrice(2000,20) - cut;
+            return Treasury.getAdjustedPrice(price,discount) - cut;
         }
     }
 
