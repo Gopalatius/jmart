@@ -14,12 +14,26 @@ public class Algorithm {
 
     }
 
-//    public static <T extends Number> List<T> collect(T[] array, T value){
-//        List<T> list = ()
-//        return
-//    }
-//
+    public static <T> List<T> collect (T[] array, T value){
 
+        return null;
+    }
+    public static <T> List<T> collect (Iterable<T> iterable, T value){
+
+        return null;
+    }
+    public static <T> List<T> collect (Iterator<T> iterator, T value){
+        return null;
+    }
+    public static <T> List<T> collect (T[] array, Predicate<T> pred){
+        return null;
+    }
+    public static <T> List<T> collect (Iterable<T> iterable, Predicate<T> pred){
+        return null;
+    }
+    public static <T> List<T> collect (Iterator<T> iterator, Predicate<T> pred){
+        return null;
+    }
 
     public static <T> int count(T[] array, T value){
         int counter = 0;
