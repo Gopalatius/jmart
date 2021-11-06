@@ -15,24 +15,60 @@ public class Algorithm {
     }
 
     public static <T> List<T> collect (T[] array, T value){
-
-        return null;
+        List<T> list = new ArrayList<T>();
+        if (value.equals(value)){
+            for (int i = 0; i < array.length; i++){
+                list.add(array[i]);
+            }
+        }
+        return list;
     }
     public static <T> List<T> collect (Iterable<T> iterable, T value){
-
-        return null;
+        List<T> list = new ArrayList<T>();
+        if (value.equals(value)){
+            for (T i : iterable){
+                list.add(i);
+            }
+        }
+        return list;
     }
     public static <T> List<T> collect (Iterator<T> iterator, T value){
-        return null;
+        List<T> list = new ArrayList<T>();
+        if (value.equals(value)) {
+            while (iterator.hasNext()) {
+                list.add(iterator.next());
+            }
+        }
+        return list;
     }
     public static <T> List<T> collect (T[] array, Predicate<T> pred){
-        return null;
+        List<T> list = new ArrayList<T>();
+        for (T i: array){
+            if (pred.test(i)){
+                list.add(i);
+            }
+        }
+        return list;
     }
     public static <T> List<T> collect (Iterable<T> iterable, Predicate<T> pred){
-        return null;
+        List<T> list = new ArrayList<T>();
+        for (T i: iterable){
+            if (pred.test(i)){
+                list.add(i);
+            }
+        }
+        return list;
     }
     public static <T> List<T> collect (Iterator<T> iterator, Predicate<T> pred){
-        return null;
+        List<T> list = new ArrayList<T>();
+        T obj;
+        while (iterator.hasNext()) {
+            obj = iterator.next();
+            if (pred.test(obj)) {
+                list.add(obj);
+            }
+        }
+        return list;
     }
 
     public static <T> int count(T[] array, T value){
