@@ -33,8 +33,8 @@ public class Jmart {
     }
     public static List<Product> filterByCategory(List<Product> list,
                                                  ProductCategory category){
-        List<Product> newList = Algorithm.<Product>collect(list,prod -> prod.category == category);
-        return newList;
+
+        return Algorithm.<Product>collect(list,prod -> prod.category == category);
     }
     public static List<Product> filterByPrice(List<Product> list,
                                                  double minPrice,
@@ -55,8 +55,8 @@ public class Jmart {
     }
     public static List<Product> read(String filepath) throws FileNotFoundException {
         JsonReader jsonReader = new JsonReader(new FileReader(filepath));
+        ArrayList<Product> arr = new Gson().fromJson(jsonReader,Product[].class);
 
-        ArrayList<Product> product = new Gson().fromJson(jsonReader,Product[].class);
-        return product;
+        return arr;
     }
 }
