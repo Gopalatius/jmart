@@ -1,10 +1,14 @@
 package naufalJmartFA;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
+
 
 public class Jmart {
 //    class Country
@@ -16,33 +20,43 @@ public class Jmart {
 
     public static void main(String[] args){
         // sesuaikan dengan lokasi di sistem anda kepada city.json
-//        String filepath = "/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/city.json";
-//        Gson gson = new Gson();
-//        try
-//        {
-//            BufferedReader br = new BufferedReader (new FileReader(filepath));
-//            Country input = gson.fromJson(br, Country.class);
-//            System.out.println("name: " + input.name);
-//            System.out.println("population: " + input.population);
-//            System.out.println("states: ");
-//            input.listOfStates.forEach(state -> System.out.println(state));
-//        }
-//        catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
+        String filepath = "/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json";
+        try {
+            List<Product> list = read(filepath);
+            List<Product> filtered = filterByPrice(list,0.0, 20000.0);
+            filtered.forEach(product -> System.out.println(product.price));
+
+        }catch (Throwable t){
+            t.printStackTrace();
+        }
 
     }
     public static List<Product> filterByCategory(List<Product> list,
                                                  ProductCategory category){
-        return null;
+        List<Product> newList = Algorithm.<Product>collect(list,prod -> prod.category == category);
+        return newList;
     }
     public static List<Product> filterByPrice(List<Product> list,
                                                  double minPrice,
                                               double maxPrice){
-        return null;
+        List<Product> newList;
+        if (minPrice == 0.0 && maxPrice == 0.0){
+            newList = Algorithm.<Product>collect(list,prod -> 0 == 0);
+        }
+        else if (minPrice == 0.0) {
+            newList = Algorithm.<Product>collect(list,prod -> prod.price <= maxPrice);
+        }else if (maxPrice == 0.0){
+            newList = Algorithm.<Product>collect(list,prod -> prod.price >= minPrice);
+        }else{
+            newList = Algorithm.<Product>collect(list,prod -> (prod.price >= minPrice && prod.price <= maxPrice));
+        }
+
+        return newList;
     }
-    public static List<Product> read(String filepath){
-        return null;
+    public static List<Product> read(String filepath) throws FileNotFoundException {
+        JsonReader jsonReader = new JsonReader(new FileReader(filepath));
+
+        ArrayList<Product> product = new Gson().fromJson(jsonReader,Product[].class);
+        return product;
     }
 }
