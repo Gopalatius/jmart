@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 
@@ -19,8 +21,9 @@ public class Jmart {
         String filepath = "/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json";
         try {
             List<Product> list = read(filepath);
-            List<Product> filtered = filterByPrice(list,0.0, 20000.0);
+            List<Product> filtered = filterByPrice(list,0.0,20000.0);
             filtered.forEach(product -> System.out.println(product.price));
+
 
         }catch (Throwable t){
             t.printStackTrace();
@@ -62,11 +65,14 @@ public class Jmart {
         //filter
         ArrayList<Product> newList = new ArrayList<Product>();
         String temp = null;
+        String temp2 = null;
         for (Product i : tempList){
-            temp = i.name;
-            temp = temp.toLowerCase();
-            if (temp.contains(search)){
-                newList.add(i);
+            if (search != null && i != null){
+                temp = i.name.toLowerCase();
+                temp2 = search.toLowerCase();
+                if (temp.contains(temp2)){
+                    newList.add(i);
+                }
             }
         }
         //paginate
