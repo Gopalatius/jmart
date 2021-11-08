@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -36,7 +37,7 @@ public class Jmart {
                                               double maxPrice){
         List<Product> newList;
         if (minPrice == 0.0 && maxPrice == 0.0){
-            newList = Algorithm.<Product>collect(list,prod -> 0 == 0);
+            newList = Algorithm.<Product>collect(list,prod -> true);
         }
         else if (minPrice == 0.0) {
             newList = Algorithm.<Product>collect(list,prod -> prod.price <= maxPrice);
@@ -53,9 +54,7 @@ public class Jmart {
         Product[] products = new Gson().fromJson(jsonReader,Product[].class);
         List<Product> prod = new ArrayList<Product>();
 
-        for (int i = 0; i < products.length; i++){
-            prod.add(products[i]);
-        }
+        Collections.addAll(prod, products);
         return prod;
     }
 }
