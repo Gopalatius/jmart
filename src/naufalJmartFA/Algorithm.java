@@ -16,17 +16,17 @@ public class Algorithm {
 
     public static <T> List<T> collect (T[] array, T value){
         List<T> list = new ArrayList<T>();
-        if (value.equals(value)){
-            for (int i = 0; i < array.length; i++){
-                list.add(array[i]);
+        for (T i : array){
+            if (value.equals(i)){
+                list.add(i);
             }
         }
         return list;
     }
     public static <T> List<T> collect (Iterable<T> iterable, T value){
         List<T> list = new ArrayList<T>();
-        if (value.equals(value)){
-            for (T i : iterable){
+        for (T i : iterable) {
+            if (value.equals(i)) {
                 list.add(i);
             }
         }
@@ -34,9 +34,11 @@ public class Algorithm {
     }
     public static <T> List<T> collect (Iterator<T> iterator, T value){
         List<T> list = new ArrayList<T>();
-        if (value.equals(value)) {
-            while (iterator.hasNext()) {
-                list.add(iterator.next());
+        T obj = null;
+        while (iterator.hasNext()) {
+            obj = iterator.next();
+            if (value.equals(obj)) {
+                list.add(obj);
             }
         }
         return list;
@@ -74,21 +76,29 @@ public class Algorithm {
     public static <T> int count(T[] array, T value){
         int counter = 0;
         for (T i:array){
-            counter++;
+            if (i == value){
+                counter++;
+            }
         }
         return counter;
     }
     public static <T> int count(Iterable<T> iterable, T value){
         int counter = 0;
         for (T i:iterable){
-            counter++;
+            if (i == value){
+                counter++;
+            }
         }
         return counter;
     }
     public static <T> int count(Iterator<T> iterator, T value){
-        int counter;
-        for (counter = 0; iterator.hasNext();counter++){
-            iterator.next();
+        int counter = 0;
+        T obj = null;
+        while(iterator.hasNext()){
+            obj = iterator.next();
+            if (obj == value){
+                counter++;
+            }
         }
         return counter;
     }
@@ -111,8 +121,8 @@ public class Algorithm {
         return counter;
     }
     public static <T> int count(Iterator<T> iterator, Predicate<T> pred){
-        int counter;
-        for (counter = 0; iterator.hasNext();counter++){
+        int counter = 0;
+        while(iterator.hasNext()){
             if (pred.test(iterator.next())) {
                 counter++;
             }
@@ -148,7 +158,6 @@ public class Algorithm {
             if (pred.test(i)){
                 return true;
             }
-
         }
         return false;
     }
@@ -161,7 +170,6 @@ public class Algorithm {
         return false;
     }
     public static <T> boolean exists(Iterator<T> iterator, Predicate<T> pred){
-
         while (iterator.hasNext()){
             if (pred.test(iterator.next())){
                 return true;
@@ -266,13 +274,12 @@ public class Algorithm {
     }
     public static <T extends Number> T max (T first, T second, Comparator<?super T> comparator) {
 
-        T terbesar;
         if (comparator.compare(first,second) > 0){
-            terbesar = first;
+            return first;
         }else{
-            terbesar = second;
+            return second;
         }
-        return terbesar;
+
     }
     public static <T extends Number> T max (T[] array, Comparator<?super T> comparator) {
 
@@ -360,11 +367,11 @@ public class Algorithm {
 
         T terkecil;
         if (comparator.compare(first,second) < 0){
-            terkecil = first;
+            return first;
         }else{
-            terkecil = second;
+            return second;
         }
-        return terkecil;
+
     }
     public static <T extends Number> T min (Iterable<T> iterable, Comparator<?super T> comparator) {
         boolean flag = false;
