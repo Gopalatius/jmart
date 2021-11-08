@@ -27,10 +27,56 @@ public class Jmart {
         }
 
     }
+    public static List<Product> filterByAccountId (List<Product> list, int accountId, int page, int pageSize){
+        // tarok di array dulu
+        Product[] tempList = new Product[list.size()];
+        tempList = ((ArrayList<Product>) list).toArray(tempList);
+
+        //filter
+        ArrayList<Product> newList = new ArrayList<Product>();
+        for (Product i : tempList){
+            if (i.accountId == accountId){
+                newList.add(i);
+            }
+        }
+
+        //paginate
+        Product[][] subArray = new Product[newList.size()/pageSize][pageSize];
+
+        List<Product> retList = new ArrayList<Product>();
+
+        Collections.addAll(retList, subArray[page]);
+
+        return retList;
+    }
     public static List<Product> filterByCategory(List<Product> list,
                                                  ProductCategory category){
 
         return Algorithm.<Product>collect(list,prod -> prod.category == category);
+    }
+    public static List<Product> filterByName (List<Product> list, String search, int page, int pageSize){
+        // tarok di array dulu
+        Product[] tempList = new Product[list.size()];
+        tempList = ((ArrayList<Product>) list).toArray(tempList);
+
+        //filter
+        ArrayList<Product> newList = new ArrayList<Product>();
+        String temp = null;
+        for (Product i : tempList){
+            temp = i.name;
+            temp = temp.toLowerCase();
+            if (temp.contains(search)){
+                newList.add(i);
+            }
+        }
+        //paginate
+        Product[][] subArray = new Product[newList.size()/pageSize][pageSize];
+
+        List<Product> retList = new ArrayList<Product>();
+
+        Collections.addAll(retList, subArray[page]);
+
+        return retList;
     }
     public static List<Product> filterByPrice(List<Product> list,
                                                  double minPrice,
@@ -48,6 +94,13 @@ public class Jmart {
         }
 
         return newList;
+    }
+    private static List<Product> paginate (List<Product> list, int page, int pageSize, Predicate<Product> pred){
+
+//        List<Product> newList = Algorithm.<Product>collect(list,prod -> pred);
+
+
+        return null;
     }
     public static List<Product> read(String filepath) throws FileNotFoundException {
         JsonReader jsonReader = new JsonReader(new FileReader(filepath));
