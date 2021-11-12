@@ -3,7 +3,6 @@ package naufalJmartFA;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 import java.util.Comparator;
 
 
@@ -46,7 +45,7 @@ public class Algorithm {
     public static <T> List<T> collect (T[] array, Predicate<T> pred){
         List<T> list = new ArrayList<T>();
         for (T i: array){
-            if (pred.test(i)){
+            if (pred.predicate(i)){
                 list.add(i);
             }
         }
@@ -55,7 +54,7 @@ public class Algorithm {
     public static <T> List<T> collect (Iterable<T> iterable, Predicate<T> pred){
         List<T> list = new ArrayList<T>();
         for (T i: iterable){
-            if (pred.test(i)){
+            if (pred.predicate(i)){
                 list.add(i);
             }
         }
@@ -66,7 +65,7 @@ public class Algorithm {
         T obj;
         while (iterator.hasNext()) {
             obj = iterator.next();
-            if (pred.test(obj)) {
+            if (pred.predicate(obj)) {
                 list.add(obj);
             }
         }
@@ -105,7 +104,7 @@ public class Algorithm {
     public static <T> int count(T[] array, Predicate<T> pred){
         int counter = 0;
         for (T i:array){
-            if (pred.test(i)) {
+            if (pred.predicate(i)) {
                 counter++;
             }
         }
@@ -114,7 +113,7 @@ public class Algorithm {
     public static <T> int count(Iterable<T> iterable, Predicate<T> pred){
         int counter = 0;
         for (T i:iterable){
-            if (pred.test(i)){
+            if (pred.predicate(i)){
                 counter++;
             }
         }
@@ -123,7 +122,7 @@ public class Algorithm {
     public static <T> int count(Iterator<T> iterator, Predicate<T> pred){
         int counter = 0;
         while(iterator.hasNext()){
-            if (pred.test(iterator.next())) {
+            if (pred.predicate(iterator.next())) {
                 counter++;
             }
         }
@@ -155,7 +154,7 @@ public class Algorithm {
     }
     public static <T> boolean exists(T [] array, Predicate<T> pred){
         for (T i: array){
-            if (pred.test(i)){
+            if (pred.predicate(i)){
                 return true;
             }
         }
@@ -163,7 +162,7 @@ public class Algorithm {
     }
     public static <T> boolean exists(Iterable<T> iterable, Predicate<T> pred){
         for (T i:iterable){
-            if(pred.test(i)){
+            if(pred.predicate(i)){
                 return true;
             }
         }
@@ -171,7 +170,7 @@ public class Algorithm {
     }
     public static <T> boolean exists(Iterator<T> iterator, Predicate<T> pred){
         while (iterator.hasNext()){
-            if (pred.test(iterator.next())){
+            if (pred.predicate(iterator.next())){
                 return true;
             }
         }
@@ -205,7 +204,7 @@ public class Algorithm {
     }
     public static <T> T find (T[] array, Predicate<T> pred){
         for (T i: array){
-            if (pred.test(i)){
+            if (pred.predicate(i)){
                 return i;
             }
         }
@@ -213,7 +212,7 @@ public class Algorithm {
     }
     public static <T> T find (Iterable<T> iterable, Predicate<T> pred){
         for (T i: iterable){
-            if (pred.test(i)){
+            if (pred.predicate(i)){
                 return i;
             }
         }
@@ -223,7 +222,7 @@ public class Algorithm {
         T temp;
         while (iterator.hasNext()){
             temp = iterator.next();
-            if (pred.test(temp)){
+            if (pred.predicate(temp)){
                 return temp ;
             }
         }

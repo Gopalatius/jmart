@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
+import java.util.function.Predicate;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -21,36 +21,20 @@ public class Jmart {
         String filepath = "/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json";
         try {
             List<Product> list = read(filepath);
-            List<Product> filtered = filterByPrice(list,0.0,20000.0);
-            filtered.forEach(product -> System.out.println(product.price));
-
-
+//            List<Product> filteredPrice = filterByPrice(list,0.0,20000.0);
+//            filteredPrice.forEach(product -> System.out.println(product.price));
+            List<Product> filteredName = filterByName(list,"gtx",1,5);
+            filteredName.forEach(product -> System.out.println(product.name));
+//            List<Product> filteredAccountId = filterByAccountId(list,1,0,5);
+//            filteredAccountId.forEach(product -> System.out.println(product.accountId));
         }catch (Throwable t){
             t.printStackTrace();
         }
 
     }
     public static List<Product> filterByAccountId (List<Product> list, int accountId, int page, int pageSize){
-        // tarok di array dulu
-        Product[] tempList = new Product[list.size()];
-        tempList = ((ArrayList<Product>) list).toArray(tempList);
 
-        //filter
-        ArrayList<Product> newList = new ArrayList<Product>();
-        for (Product i : tempList){
-            if (i.accountId == accountId){
-                newList.add(i);
-            }
-        }
-
-        //paginate
-        Product[][] subArray = new Product[newList.size()/pageSize][pageSize];
-
-        List<Product> retList = new ArrayList<Product>();
-
-        Collections.addAll(retList, subArray[page]);
-
-        return retList;
+        return paginate(list,page,pageSize,prod -> prod.accountId == accountId);
     }
     public static List<Product> filterByCategory(List<Product> list,
                                                  ProductCategory category){
@@ -58,31 +42,8 @@ public class Jmart {
         return Algorithm.<Product>collect(list,prod -> prod.category == category);
     }
     public static List<Product> filterByName (List<Product> list, String search, int page, int pageSize){
-        // tarok di array dulu
-        Product[] tempList = new Product[list.size()];
-        tempList = ((ArrayList<Product>) list).toArray(tempList);
 
-        //filter
-        ArrayList<Product> newList = new ArrayList<Product>();
-        String temp = null;
-        String temp2 = null;
-        for (Product i : tempList){
-            if (search != null && i != null){
-                temp = i.name.toLowerCase();
-                temp2 = search.toLowerCase();
-                if (temp.contains(temp2)){
-                    newList.add(i);
-                }
-            }
-        }
-        //paginate
-        Product[][] subArray = new Product[newList.size()/pageSize][pageSize];
-
-        List<Product> retList = new ArrayList<Product>();
-
-        Collections.addAll(retList, subArray[page]);
-
-        return retList;
+        return paginate(list,page,pageSize,prod -> prod.name.toLowerCase().contains(search.toLowerCase()));
     }
     public static List<Product> filterByPrice(List<Product> list,
                                                  double minPrice,
@@ -102,11 +63,21 @@ public class Jmart {
         return newList;
     }
     private static List<Product> paginate (List<Product> list, int page, int pageSize, Predicate<Product> pred){
+        List<List<Product>> newList = new ArrayList<List<Product>>();
+        List<Product> filteredList = new ArrayList<Product>();
+        for (int i = 0; i < list.size(); i++){
+            if (pred.test(list.get(i))){
+                filteredList.add(list.get(i));
+            }
+        }
+        final int ukuran = filteredList.size();
+        for (int i = 0; i < ukuran; i += pageSize){
+                newList.add(new ArrayList<Product>(list.subList
+                        (i, Math.min(ukuran,i + pageSize))));
 
-//        List<Product> newList = Algorithm.<Product>collect(list,prod -> pred);
+        }
 
-
-        return null;
+        return newList.get(page);
     }
     public static List<Product> read(String filepath) throws FileNotFoundException {
         JsonReader jsonReader = new JsonReader(new FileReader(filepath));
