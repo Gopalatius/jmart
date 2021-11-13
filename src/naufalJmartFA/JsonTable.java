@@ -19,9 +19,16 @@ public class JsonTable<T> extends Vector {
         try{
             Class<T[]> arrayOfGeneric = (Class<T[]>) Array.newInstance(clazz, 0).getClass();
             T[] genericArray = readJson(arrayOfGeneric,filepath);
-            Collections.addAll(this,genericArray);
+            if (genericArray != null){
+                Collections.addAll(this,genericArray);
+            }
+
         }catch (IOException e){
             File file = new File(filepath);
+            File dir = file.getParentFile();
+            dir.mkdirs();
+
+            file.createNewFile();
         }
     }
     public static <T> T readJson (Class<T> clazz, String filepath) throws FileNotFoundException{
