@@ -18,15 +18,17 @@ public class Jmart {
 
     public static void main(String[] args){
         // sesuaikan dengan lokasi di sistem anda kepada city.json
-        String filepath = "/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json";
+//        String filepath = "/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json";
+
         try {
-            List<Product> list = read(filepath);
-//            List<Product> filteredPrice = filterByPrice(list,0.0,20000.0);
-//            filteredPrice.forEach(product -> System.out.println(product.price));
-            List<Product> filteredName = filterByName(list,"gtx",1,5);
-            filteredName.forEach(product -> System.out.println(product.name));
-//            List<Product> filteredAccountId = filterByAccountId(list,1,0,5);
-//            filteredAccountId.forEach(product -> System.out.println(product.accountId));
+            String filepath = "a/b/c/account.json";
+
+            JsonTable<Account> tableAccount = new JsonTable<>(Account.class,filepath);
+            tableAccount.add(new Account("name","email","password", 0));
+            tableAccount.writeJson();
+
+            tableAccount = new JsonTable<>(Account.class, filepath);
+            tableAccount.forEach(account -> System.out.println(account.toString()));
         }catch (Throwable t){
             t.printStackTrace();
         }
