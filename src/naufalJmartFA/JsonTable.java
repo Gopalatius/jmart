@@ -31,7 +31,7 @@ public class JsonTable<T> extends Vector {
         return readJson;
     }
     public void writeJson () throws IOException{
-        writeJson(this.gson,this.filepath);
+        writeJson(this,this.filepath);
     }
     public static void writeJson(Object object, String filepath) throws IOException{
         FileWriter fwrite = new FileWriter(filepath);
