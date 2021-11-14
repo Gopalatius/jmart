@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
+
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
@@ -36,7 +36,7 @@ public class Jmart {
     }
     public static List<Product> filterByAccountId (List<Product> list, int accountId, int page, int pageSize){
 
-        return paginate(list,page,pageSize,prod -> prod.accountId == accountId);
+        return Algorithm.<Product>paginate(list,page,pageSize,prod -> prod.accountId == accountId);
     }
     public static List<Product> filterByCategory(List<Product> list,
                                                  ProductCategory category){
@@ -45,7 +45,7 @@ public class Jmart {
     }
     public static List<Product> filterByName (List<Product> list, String search, int page, int pageSize){
 
-        return paginate(list,page,pageSize,prod -> prod.name.toLowerCase().contains(search.toLowerCase()));
+        return Algorithm.<Product>paginate(list,page,pageSize,prod -> prod.name.toLowerCase().contains(search.toLowerCase()));
     }
     public static List<Product> filterByPrice(List<Product> list,
                                                  double minPrice,
@@ -64,23 +64,7 @@ public class Jmart {
 
         return newList;
     }
-    private static List<Product> paginate (List<Product> list, int page, int pageSize, Predicate<Product> pred){
-        List<List<Product>> newList = new ArrayList<List<Product>>();
-        List<Product> filteredList = new ArrayList<Product>();
-        for (int i = 0; i < list.size(); i++){
-            if (pred.test(list.get(i))){
-                filteredList.add(list.get(i));
-            }
-        }
-        final int ukuran = filteredList.size();
-        for (int i = 0; i < ukuran; i += pageSize){
-                newList.add(new ArrayList<Product>(list.subList
-                        (i, Math.min(ukuran,i + pageSize))));
 
-        }
-
-        return newList.get(page);
-    }
     public static List<Product> read(String filepath) throws FileNotFoundException {
         JsonReader jsonReader = new JsonReader(new FileReader(filepath));
         Product[] products = new Gson().fromJson(jsonReader,Product[].class);

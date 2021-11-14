@@ -399,5 +399,54 @@ public class Algorithm {
         }
         return terkecil;
     }
+    public static <T> List<T> paginate (T[] array, int page, int pageSize, Predicate<T> pred){
+        List<List<T>> newList = new ArrayList<List<T>>();
+        List<T> filteredList = new ArrayList<T>();
+        for (T i: array){
+            if (pred.predicate(i)){
+                filteredList.add(i);
+            }
+        }
+        for (int i = 0; i < filteredList.size(); i += pageSize){
+            newList.add(new ArrayList<T>(filteredList.subList
+                    (i, Math.min(filteredList.size(), i + pageSize))));
 
+        }
+
+        return newList.get(page);
+    }
+    public static <T> List<T> paginate (Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
+        List<List<T>> newList = new ArrayList<List<T>>();
+        List<T> filteredList = new ArrayList<T>();
+        for (T i: iterable){
+            if (pred.predicate(i)){
+                filteredList.add(i);
+            }
+        }
+        for (int i = 0; i < filteredList.size(); i += pageSize){
+            newList.add(new ArrayList<T>(filteredList.subList
+                    (i, Math.min(filteredList.size(), i + pageSize))));
+
+        }
+
+        return newList.get(page);
+    }
+    public static <T> List<T> paginate (Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){
+        List<List<T>> newList = new ArrayList<List<T>>();
+        List<T> filteredList = new ArrayList<T>();
+        T obj;
+        while (iterator.hasNext()){
+            obj = iterator.next();
+            if (pred.predicate(obj)){
+                filteredList.add(obj);
+            }
+        }
+        for (int i = 0; i < filteredList.size(); i += pageSize){
+            newList.add(new ArrayList<T>(filteredList.subList
+                    (i, Math.min(filteredList.size(), i + pageSize))));
+
+        }
+
+        return newList.get(page);
+    }
 }
