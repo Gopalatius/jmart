@@ -1,7 +1,22 @@
 package naufalJmartFA;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Payment extends Invoice
 {
+    public static class Record{
+        public final Date date;
+        public String message;
+        public Status status;
+
+        public Record (Status status, String message){
+            this.date = new Date();
+            this.message = message;
+            this.status = status;
+        }
+    }
+    public ArrayList<Record> history = new ArrayList<Record>();
     public int productCount;
     public Shipment shipment;
     
@@ -13,8 +28,8 @@ public class Payment extends Invoice
         
     }
     @Override
-    public double getTotalPay (){
-        return 0.0d;
+    public double getTotalPay (Product product){
+        return product.price* (1-product.discount);
     }
     
 }

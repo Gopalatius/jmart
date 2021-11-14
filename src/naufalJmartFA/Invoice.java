@@ -13,27 +13,19 @@ public abstract class Invoice extends Serializable
     public enum Rating{
         NONE, BAD, NEUTRAL, GOOD
     }
-    public class Record{
-        public Date date;
-        public String message;
-        public Status status;
-    }
-    
-    public final Date date;
+
     public int buyerId;
-    public int productId;
     public int complaintId;
+    public final Date date;
+    public int productId;
     public Rating rating;
-    public Status status;
-    public ArrayList<Record> history;
     
     protected Invoice (int buyerId, int productId){
         this.buyerId = buyerId;
         this.productId = productId;
-        this.complaintId = 0;
+        this.complaintId = -1;
         this.rating = Rating.NONE;
-        this.status = Status.WAITING_CONFIRMATION;
         this.date = new Date();
     }
-    public abstract double getTotalPay();
+    public abstract double getTotalPay(Product product);
 }
