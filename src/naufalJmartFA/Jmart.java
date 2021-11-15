@@ -53,7 +53,7 @@ public class Jmart {
             return false;
         }
         payment.history.add(temp2);
-        return false;
+        return true;
     }
 //    public static List<Product> filterByAccountId (List<Product> list, int accountId, int page, int pageSize){
 //
