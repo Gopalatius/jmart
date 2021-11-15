@@ -49,7 +49,7 @@ public class Jmart {
                 temp.date.getTime() > DELIVERED_LIMIT_MS)){
             temp2.status = Invoice.Status.FINISHED;
             temp2.message = "Selesai!";
-        } else if (temp.status == null){
+        } else {
             return false;
         }
         payment.history.add(temp2);

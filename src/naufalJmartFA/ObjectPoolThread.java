@@ -26,12 +26,14 @@ public class ObjectPoolThread<T> extends Thread {
     public void run () {
         while (!this.exitSignal) {
             int lastSize = objectPool.size() - 1;
-            routine.apply(objectPool.get(lastSize));
-        }
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            while(routine.apply(objectPool.get(lastSize)));
+
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            notifyAll();
         }
     }
     public int size(){
