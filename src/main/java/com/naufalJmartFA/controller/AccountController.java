@@ -34,7 +34,11 @@ public class AccountController
 		Account account = Algorithm.<Account>find(accountTable,var-> var.email==email &&
 				var.password == password);
 
-		return account;
+		if (account != null){
+			return account;
+		}else{
+			return null;
+		}
 	}
 
 
@@ -72,6 +76,17 @@ public class AccountController
 		}
 
 		return null;
+	}
+
+	@PostMapping("/{id}/topUp")
+	boolean topUp (int id, double balance){
+		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
+		if (account != null){
+			account.balance += balance;
+			return true;
+		}else{
+			return false;
+		}
 	}
 //	@GetMapping("/{id}")
 //	String getById(@PathVariable int id) { return "account id " + id + " not found!"; }
