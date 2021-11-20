@@ -2,7 +2,11 @@ package com.naufalJmartFA.controller;
 
 import com.naufalJmartFA.*;
 import com.naufalJmartFA.dbjson.JsonAutowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/payment")
 public class PaymentController implements BasicGetController<Payment> {
     public static final long DELIVERED_LIMIT_MS = 1;
     public static final long ON_DELIVERY_LIMIT_MS = 2;
