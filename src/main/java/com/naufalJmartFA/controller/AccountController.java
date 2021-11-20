@@ -2,14 +2,44 @@ package com.naufalJmartFA.controller;
 
 
 import com.naufalJmartFA.Account;
+import com.naufalJmartFA.Algorithm;
+import com.naufalJmartFA.JsonTable;
+import com.naufalJmartFA.Store;
+import com.naufalJmartFA.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/account")
 public class AccountController 
 {
-	@GetMapping
-	String index() { return "account page"; }
+	public static final String REGEX_EMAIL =
+			"^[^\\.]*((?!\\.{2,}).)[A-Za-z0-9&~_*]+(?:\\.[A-Za-z0-9&~_*]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[a-zA-Z]";
+	public static final String REGEX_PASSWORD =
+			"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)((?!\\s).)*[a-zA-Z\\d]{8,}$";
+	public static final String REGEX_PATTERN_EMAIL = null;
+	public static final String REGEX_PATTERN_PASSWORD = null;
+
+	@JsonAutowired(value = Account.class,filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json" )
+	public static JsonTable<Account> accountTable;
+
+	public JsonTable<Account> getJsonTable(){
+		return accountTable;
+	}
+
+	@PostMapping("/login")
+	Account login(String email, String password){
+		Account account = Algorithm.<Account>find(accountTable,var-> var.email==email &&
+				var.password == password);
+
+		return account;
+	}
+
+
+//	@GetMapping
+//	String index() { return "account page"; }
 	
 	@PostMapping("/register")
 	Account register
@@ -19,9 +49,30 @@ public class AccountController
 		@RequestParam String password
 	)
 	{
-		return new Account(name, email, password, 0);
+		Pattern patternEmail = Pattern.compile(REGEX_EMAIL);
+		Matcher matcherEmail = patternEmail.matcher(email);
+		boolean matchEmail = matcherEmail.find();
+
+		Pattern patternPassword = Pattern.compile(REGEX_PASSWORD);
+		Matcher matcherPassword = patternPassword.matcher(password);
+		boolean matchFoundPassword = matcherPassword.find();
+		if (matchEmail && matchFoundPassword && !name.isBlank()){
+			return new Account(name, email, password, 0);
+		}else{
+			return null;
+		}
+
 	}
-	
-	@GetMapping("/{id}")
-	String getById(@PathVariable int id) { return "account id " + id + " not found!"; }
+	@PostMapping("/{id}/registerStore")
+	Store registerStore (int id, String name, String address, String phoneNumber){
+		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
+		if (account.store == null){
+			account.store = new Store(name, address, phoneNumber, 0);
+			return account.store;
+		}
+
+		return null;
+	}
+//	@GetMapping("/{id}")
+//	String getById(@PathVariable int id) { return "account id " + id + " not found!"; }
 }

@@ -16,18 +16,18 @@ public class Jmart {
         // sesuaikan dengan lokasi di sistem anda kepada city.json
 //        String filepath = "/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json";
 
-        try {
-            String filepath = "a/b/c/account.json";
-
-            JsonTable<Account> tableAccount = new JsonTable<>(Account.class,filepath);
-            tableAccount.add(new Account("name","email","password", 0));
-            tableAccount.writeJson();
-
-            tableAccount = new JsonTable<>(Account.class, filepath);
-            tableAccount.forEach(account -> System.out.println(account.toString()));
-        }catch (Throwable t){
-            t.printStackTrace();
-        }
+//        try {
+//            String filepath = "a/b/c/account.json";
+//
+//            JsonTable<Account> tableAccount = new JsonTable<>(Account.class,filepath);
+//            tableAccount.add(new Account("name","email","password", 0));
+//            tableAccount.writeJson();
+//
+//            tableAccount = new JsonTable<>(Account.class, filepath);
+//            tableAccount.forEach(account -> System.out.println(account.toString()));
+//        }catch (Throwable t){
+//            t.printStackTrace();
+//        }
 
     }
     public static boolean paymentTimekeeper (Payment payment){
