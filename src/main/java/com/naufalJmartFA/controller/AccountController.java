@@ -29,8 +29,8 @@ public class AccountController
 		return accountTable;
 	}
 
-	@PostMapping("/login")
-	Account login(String email, String password){
+	@GetMapping("/account/login")
+	Account login(@RequestParam String email, @RequestParam String password){
 		Account account = Algorithm.<Account>find(accountTable,var-> var.email==email &&
 				var.password == password);
 
@@ -45,7 +45,7 @@ public class AccountController
 //	@GetMapping
 //	String index() { return "account page"; }
 	
-	@PostMapping("/register")
+	@PostMapping("/account/register")
 	Account register
 	(
 		@RequestParam String name,
@@ -67,8 +67,8 @@ public class AccountController
 		}
 
 	}
-	@PostMapping("/{id}/registerStore")
-	Store registerStore (int id, String name, String address, String phoneNumber){
+	@PostMapping("/account/{id}/registerStore")
+	Store registerStore (@PathVariable int id, @RequestParam String name, @RequestParam String address, @RequestParam String phoneNumber){
 		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
 		if (account.store == null){
 			account.store = new Store(name, address, phoneNumber, 0);
@@ -78,8 +78,8 @@ public class AccountController
 		return null;
 	}
 
-	@PostMapping("/{id}/topUp")
-	boolean topUp (int id, double balance){
+	@PostMapping("/account/{id}/topUp")
+	boolean topUp (@PathVariable int id, @RequestParam double balance){
 		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
 		if (account != null){
 			account.balance += balance;

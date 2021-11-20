@@ -2,9 +2,7 @@ package com.naufalJmartFA.controller;
 
 import com.naufalJmartFA.*;
 import com.naufalJmartFA.dbjson.JsonAutowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/payment")
@@ -19,25 +17,33 @@ public class PaymentController implements BasicGetController<Payment> {
 
     public static ObjectPoolThread<Payment> poolThread;
 
+    @GetMapping
     public JsonTable getJsonTable(){
         return paymentTable;
     }
 
-    @PostMapping("/{id}/accept")
-    boolean accept (int id){
+    @PostMapping("/payment/{id}/accept")
+    boolean accept (@PathVariable int id){
         return false;
     }
-    boolean cancel (int id){
+    @PostMapping("/payment/{id}/cancel")
+    boolean cancel (@PathVariable int id){
         return false;
     }
-    Payment create (int buyerId, int productId, int productCount, String shipmentAddress,
-                    byte shipmentPlan){
+    @PostMapping("/payment/create")
+    Payment create (@RequestParam int buyerId,
+                    @RequestParam int productId,
+                    @RequestParam int productCount,
+                    @RequestParam String shipmentAddress,
+                    @RequestParam byte shipmentPlan){
         return null;
     }
-    boolean submit(int id, String receipt){
+    @PostMapping("/payment/{id}/submit")
+    boolean submit(@PathVariable int id, @RequestParam String receipt){
         return false;
     }
-    private static boolean timeKeeper (Payment payment){
+    @PostMapping("/payment/timeKeeper")
+    private static boolean timeKeeper ( @RequestParam Payment payment){
         return false;
     }
 }
