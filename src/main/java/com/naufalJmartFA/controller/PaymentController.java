@@ -2,6 +2,7 @@ package com.naufalJmartFA.controller;
 
 import com.naufalJmartFA.*;
 import com.naufalJmartFA.dbjson.JsonAutowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,7 @@ public class PaymentController implements BasicGetController<Payment> {
         return paymentTable;
     }
 
+    @PostMapping("/{id}/accept")
     boolean accept (int id){
         return false;
     }
