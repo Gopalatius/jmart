@@ -10,7 +10,7 @@ import com.naufalJmartFA.ProductCategory;
 import com.naufalJmartFA.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class ProductController implements BasicGetController<Product>{
                     @RequestParam double discount,
                     @RequestParam ProductCategory category,
                     @RequestParam byte shipmentPlans){
-        //belum selesai
+
         return new Product(accountId,name,weight,conditionUsed,price,discount,category,shipmentPlans);
     }
 
