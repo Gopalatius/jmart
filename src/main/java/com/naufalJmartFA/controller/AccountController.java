@@ -34,7 +34,7 @@ public class AccountController implements BasicGetController<Account>
 		return accountTable;
 	}
 
-	@GetMapping("/account/login")
+	@GetMapping("/login")
 	Account login(@RequestParam String email, @RequestParam String password){
 		String generatedPassword = null;
 
@@ -66,7 +66,7 @@ public class AccountController implements BasicGetController<Account>
 //	@GetMapping
 //	String index() { return "account page"; }
 	
-	@PostMapping("/account/register")
+	@PostMapping("/register")
 	Account register
 	(
 		@RequestParam String name,
@@ -102,7 +102,7 @@ public class AccountController implements BasicGetController<Account>
 		}
 
 	}
-	@PostMapping("/account/{id}/registerStore")
+	@PostMapping("/{id}/registerStore")
 	Store registerStore (@PathVariable int id, @RequestParam String name, @RequestParam String address, @RequestParam String phoneNumber){
 		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
 		if (account.store == null){
@@ -113,7 +113,7 @@ public class AccountController implements BasicGetController<Account>
 		return null;
 	}
 
-	@PostMapping("/account/{id}/topUp")
+	@PostMapping("/{id}/topUp")
 	boolean topUp (@PathVariable int id, @RequestParam double balance){
 		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
 		if (account != null){
