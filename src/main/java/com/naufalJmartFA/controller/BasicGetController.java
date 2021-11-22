@@ -4,15 +4,17 @@ import com.naufalJmartFA.Algorithm;
 import com.naufalJmartFA.JsonTable;
 import com.naufalJmartFA.Serializable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
 public interface BasicGetController <T extends Serializable> {
     @GetMapping("/{id}")
     public default T getById(int id){
-
+//        T obj = Algorithm.<T>find(getJsonTable(),pred -> pred.id == id);
 //        ArrayList<T> list = (ArrayList<T>) getJsonTable();
 //
 ////        for (T object: getJsonTable()){
