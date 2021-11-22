@@ -15,16 +15,9 @@ import java.util.List;
 public interface BasicGetController <T extends Serializable> {
     @GetMapping("/{id}")
     public default T getById(@PathVariable int id){
-//        T obj = Algorithm.<T>find(getJsonTable(),pred -> pred.id == id);
-//        ArrayList<T> list = (ArrayList<T>) getJsonTable();
-//
-////        for (T object: getJsonTable()){
-////            if (object.id == id){
-////                return object;
-////            }
-////        }
-//        return Algorithm.<T>find(getJsonTable(),id);
-        return null;
+        T obj = (T) Algorithm.<T>find(getJsonTable(), pred -> pred.id == id);
+
+        return obj;
     }
 
     public abstract JsonTable<T> getJsonTable();
