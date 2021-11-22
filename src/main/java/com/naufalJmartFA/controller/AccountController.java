@@ -8,6 +8,7 @@ import com.naufalJmartFA.Store;
 import com.naufalJmartFA.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.RemoteEndpoint;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,7 +18,7 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/account")
-public class AccountController 
+public class AccountController implements BasicGetController<Account>
 {
 	public static final String REGEX_EMAIL =
 			"^[^\\.]*((?!\\.{2,}).)[A-Za-z0-9&~_*]+(?:\\.[A-Za-z0-9&~_*]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[a-zA-Z]";
