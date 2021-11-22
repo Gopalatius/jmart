@@ -8,6 +8,10 @@ import com.naufalJmartFA.Store;
 import com.naufalJmartFA.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,8 +35,24 @@ public class AccountController
 
 	@GetMapping("/account/login")
 	Account login(@RequestParam String email, @RequestParam String password){
+		String generatedPassword = null;
+
+		try{
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(password.getBytes());
+			byte[] bytes = md.digest();
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++){
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
+			}
+			generatedPassword = sb.toString();
+		}catch(NoSuchAlgorithmException e){
+			e.printStackTrace();
+		}
+		final String lambdaGeneratedPassword = generatedPassword;
+
 		Account account = Algorithm.<Account>find(accountTable,var-> var.email==email &&
-				var.password == password);
+				var.password == lambdaGeneratedPassword);
 
 		if (account != null){
 			return account;
@@ -60,8 +80,22 @@ public class AccountController
 		Pattern patternPassword = Pattern.compile(REGEX_PASSWORD);
 		Matcher matcherPassword = patternPassword.matcher(password);
 		boolean matchFoundPassword = matcherPassword.find();
+
+		String generatedPassword = null;
 		if (matchEmail && matchFoundPassword && !name.isBlank()){
-			return new Account(name, email, password, 0);
+			try{
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				md.update(password.getBytes());
+				byte[] bytes = md.digest();
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i < bytes.length; i++){
+					sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
+				}
+				generatedPassword = sb.toString();
+			}catch(NoSuchAlgorithmException e){
+				e.printStackTrace();
+			}
+			return new Account(name, email, generatedPassword, 0);
 		}else{
 			return null;
 		}
