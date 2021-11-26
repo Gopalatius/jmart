@@ -4,6 +4,7 @@ import com.naufalJmartFA.*;
 import com.naufalJmartFA.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Date;
 
 @RestController
@@ -24,27 +25,69 @@ public class PaymentController implements BasicGetController<Payment> {
         return paymentTable;
     }
 
-    @PostMapping("/payment/{id}/accept")
+    @PostMapping("/{id}/accept")
     boolean accept (@PathVariable int id){
+        Payment payment = Algorithm.<Payment>find(getJsonTable(),pred -> pred.id == id);
+        if (payment != null){
+            if (payment.history.get(payment.history.size()-1).status ==
+            Invoice.Status.WAITING_CONFIRMATION){
+                payment.history.add(new Payment.Record(Invoice.Status.ON_PROGRESS,""));
+                return true;
+            }
+        }
         return false;
     }
-    @PostMapping("/payment/{id}/cancel")
+    @PostMapping("/{id}/cancel")
     boolean cancel (@PathVariable int id){
+        Payment payment = Algorithm.<Payment>find(getJsonTable(),pred -> pred.id == id);
+        if (payment != null){
+            if (payment.history.get(payment.history.size()-1).status ==
+                    Invoice.Status.WAITING_CONFIRMATION){
+                payment.history.add(new Payment.Record(Invoice.Status.CANCELLED,""));
+                return true;
+            }
+        }
         return false;
     }
-    @PostMapping("/payment/create")
+    @PostMapping("/create")
     Payment create (@RequestParam int buyerId,
                     @RequestParam int productId,
                     @RequestParam int productCount,
                     @RequestParam String shipmentAddress,
                     @RequestParam byte shipmentPlan){
+
+        Account account = Algorithm.<Account>find(new AccountController().getJsonTable(),pred -> pred.id == buyerId);
+        Product product = Algorithm.<Product>find(new ProductController().getJsonTable(), pred -> pred.id == productId);
+        Shipment shipment = new Shipment(shipmentAddress,0,shipmentPlan,null);
+        Payment payment = new Payment(buyerId,productId,productCount,shipment);
+        double price = payment.getTotalPay(product);
+        boolean lebihBesar = account.balance >= price;
+
+
+        if (account != null && product != null  &&
+        lebihBesar){
+            account.balance -= price;
+            payment.history.add(new Payment.Record(Invoice.Status.WAITING_CONFIRMATION,"waiting"));
+            paymentTable.add(payment);
+            poolThread.add(payment);
+            return payment;
+        }
         return null;
     }
-    @PostMapping("/payment/{id}/submit")
+    @PostMapping("/{id}/submit")
     boolean submit(@PathVariable int id, @RequestParam String receipt){
+        Payment payment = Algorithm.<Payment>find(getJsonTable(),pred -> pred.id == id);
+        if (payment != null){
+            if (payment.history.get(payment.history.size()-1).status ==
+                    Invoice.Status.ON_PROGRESS && !receipt.isBlank()){
+                payment.shipment.receipt = receipt;
+                payment.history.add(new Payment.Record(Invoice.Status.ON_DELIVERY,""));
+                return true;
+            }
+        }
         return false;
     }
-    @PostMapping("/payment/timeKeeper")
+    @PostMapping("/timeKeeper")
     private static boolean timeKeeper ( @RequestParam Payment payment){
         Date now = new Date();
         int indexOfLastRecord = payment.history.size()-1;

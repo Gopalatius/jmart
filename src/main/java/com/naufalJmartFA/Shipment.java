@@ -48,5 +48,5 @@ public class Shipment
     public boolean isDuration(Plan reference){
         return ((this.plan & reference.bit) != 0);
     }
-    public boolean isDUration(byte object, Plan reference ) { return ((object & reference.bit) != 0);}
+    public static boolean isDUration(byte object, Plan reference ) { return ((object & reference.bit) != 0);}
 }

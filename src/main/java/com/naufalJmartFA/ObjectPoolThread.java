@@ -25,7 +25,7 @@ public class ObjectPoolThread<T> extends Thread {
     @Override
     public void run () {
         while (!this.exitSignal) {
-            int lastSize = objectPool.size() - 1;
+            int lastSize = size() - 1;
             while(routine.apply(objectPool.get(lastSize)));
 
             try {

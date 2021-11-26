@@ -36,7 +36,7 @@ public class Serializable implements Comparable<Serializable>
 //        }else{
 //           return false;
 //        }
-        return other instanceof Serializable && ((Serializable) other).id == this.id;
+        return (other instanceof Serializable) && (((Serializable) other).id == this.id);
 
     }
 
