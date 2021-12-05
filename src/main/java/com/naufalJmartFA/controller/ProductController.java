@@ -3,7 +3,7 @@ package com.naufalJmartFA.controller;
 
 
 import com.naufalJmartFA.Algorithm;
-import com.naufalJmartFA.JsonTable;
+import com.naufalJmartFA.dbjson.JsonTable;
 import com.naufalJmartFA.Product;
 
 import com.naufalJmartFA.ProductCategory;

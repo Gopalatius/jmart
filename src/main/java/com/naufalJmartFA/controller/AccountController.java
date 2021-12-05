@@ -3,7 +3,7 @@ package com.naufalJmartFA.controller;
 
 import com.naufalJmartFA.Account;
 import com.naufalJmartFA.Algorithm;
-import com.naufalJmartFA.JsonTable;
+import com.naufalJmartFA.dbjson.JsonTable;
 import com.naufalJmartFA.Store;
 import com.naufalJmartFA.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,20 +20,23 @@ import java.util.regex.Pattern;
 public class AccountController implements BasicGetController<Account>
 {
 	public static final String REGEX_EMAIL =
-			"^[^\\.]*((?!\\.{2,}).)[A-Za-z0-9&~_*]+(?:\\.[A-Za-z0-9&~_*]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[a-zA-Z]";
+			"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 	public static final String REGEX_PASSWORD =
-			"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)((?!\\s).)*[a-zA-Z\\d]{8,}$";
+			"(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)((?!\\s).)*[a-zA-Z\\d]{8,}$";
 	public static final String REGEX_PATTERN_EMAIL = null;
 	public static final String REGEX_PATTERN_PASSWORD = null;
 
-	@JsonAutowired(value = Account.class,filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json" )
+//	@JsonAutowired(filepath ="G:/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/a/b/AccountBaru.json", value = Account.class)
+//	public static JsonTable<Account> accountTable;
+//
+	@JsonAutowired(filepath ="D:\\OOP\\json", value = Account.class)
 	public static JsonTable<Account> accountTable;
 
 	public JsonTable<Account> getJsonTable(){
 		return accountTable;
 	}
 
-	@GetMapping("/login")
+	@PostMapping("/login")
 	Account login(@RequestParam String email, @RequestParam String password){
 		String generatedPassword = null;
 
@@ -50,15 +53,15 @@ public class AccountController implements BasicGetController<Account>
 			e.printStackTrace();
 		}
 		final String lambdaGeneratedPassword = generatedPassword;
-
-		Account account = Algorithm.<Account>find(accountTable,var-> var.email==email &&
-				var.password == lambdaGeneratedPassword);
-
-		if (account != null){
-			return account;
-		}else{
-			return null;
-		}
+		return new Account("naufal",email, lambdaGeneratedPassword, 0);
+//		Account account = Algorithm.<Account>find(accountTable,var-> var.email==email &&
+//				var.password == lambdaGeneratedPassword);
+//
+//		if (account != null){
+//			return account;
+//		}else{
+//			return null;
+//		}
 	}
 
 
@@ -80,9 +83,16 @@ public class AccountController implements BasicGetController<Account>
 		Pattern patternPassword = Pattern.compile(REGEX_PASSWORD);
 		Matcher matcherPassword = patternPassword.matcher(password);
 		boolean matchFoundPassword = matcherPassword.find();
+		Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email == email);
+//		Account temp = null;
+//		for (int i = 0; i < accountTable.size(); i++){
+//			temp = (Account) accountTable.get(i);
+//			if (temp.email == email)
+//				return null;
+//		}
 
 		String generatedPassword = null;
-		if (matchEmail && matchFoundPassword && !name.isBlank()){
+		if ( matchEmail && matchFoundPassword && !name.isBlank()){
 			try{
 				MessageDigest md = MessageDigest.getInstance("MD5");
 				md.update(password.getBytes());
@@ -95,11 +105,14 @@ public class AccountController implements BasicGetController<Account>
 			}catch(NoSuchAlgorithmException e){
 				e.printStackTrace();
 			}
-			return new Account(name, email, generatedPassword, 0);
-		}else{
-			return null;
-		}
+			Account newAccount = new Account(name, email, generatedPassword, 0);
 
+			accountTable.add(newAccount);
+			return newAccount;
+
+
+		}
+		return null;
 	}
 	@PostMapping("/{id}/registerStore")
 	Store registerStore (@PathVariable int id, @RequestParam String name, @RequestParam String address, @RequestParam String phoneNumber){

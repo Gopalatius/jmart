@@ -1,7 +1,7 @@
 package com.naufalJmartFA;
 
 
-
+import com.naufalJmartFA.dbjson.Serializable;
 
 public class Coupon extends Serializable
 {

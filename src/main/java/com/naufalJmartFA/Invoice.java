@@ -1,7 +1,8 @@
 package com.naufalJmartFA;
 
+import com.naufalJmartFA.dbjson.Serializable;
+
 import java.util.Date;
-import java.util.ArrayList;
 
 public abstract class Invoice extends Serializable
 {

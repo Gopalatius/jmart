@@ -1,4 +1,6 @@
 package com.naufalJmartFA;
+import com.naufalJmartFA.dbjson.Serializable;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

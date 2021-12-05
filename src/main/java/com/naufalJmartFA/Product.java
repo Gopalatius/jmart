@@ -1,6 +1,7 @@
 package com.naufalJmartFA;
 
 
+import com.naufalJmartFA.dbjson.Serializable;
 
 public class Product extends Serializable
 {

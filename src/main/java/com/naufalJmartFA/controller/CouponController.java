@@ -2,7 +2,7 @@ package com.naufalJmartFA.controller;
 
 import com.naufalJmartFA.Algorithm;
 import com.naufalJmartFA.Coupon;
-import com.naufalJmartFA.JsonTable;
+import com.naufalJmartFA.dbjson.JsonTable;
 
 import com.naufalJmartFA.dbjson.JsonAutowired;
 import org.springframework.web.bind.annotation.*;

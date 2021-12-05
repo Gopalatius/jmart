@@ -2,9 +2,9 @@ package com.naufalJmartFA.controller;
 
 import com.naufalJmartFA.*;
 import com.naufalJmartFA.dbjson.JsonAutowired;
+import com.naufalJmartFA.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.Date;
 
 @RestController

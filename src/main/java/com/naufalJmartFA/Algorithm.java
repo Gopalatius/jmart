@@ -211,9 +211,11 @@ public class Algorithm {
         return null;
     }
     public static <T> T find (Iterable<T> iterable, Predicate<T> pred){
-        for (T i: iterable){
-            if (pred.predicate(i)){
-                return i;
+        if (iterable != null){
+            for (T i: iterable){
+                if (pred.predicate(i)){
+                    return i;
+                }
             }
         }
         return null;
