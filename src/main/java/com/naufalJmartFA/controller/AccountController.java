@@ -29,8 +29,9 @@ public class AccountController implements BasicGetController<Account>
 //	@JsonAutowired(filepath ="G:/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/a/b/AccountBaru.json", value = Account.class)
 //	public static JsonTable<Account> accountTable;
 //
-	@JsonAutowired(filepath ="G:\\My Drive\\PC\\Kuliah\\Semester 3\\Pemrograman Berorientasi Objek\\Praktikum\\Testing\\jmart\\lib\\account.json", value = Account.class)
+	@JsonAutowired(filepath ="D:\\account.json", value = Account.class)
 	public static JsonTable<Account> accountTable;
+
 
 	public JsonTable<Account> getJsonTable(){
 		return accountTable;
@@ -74,7 +75,7 @@ public class AccountController implements BasicGetController<Account>
 		Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email == email);
 
 		final String generatedPassword;
-		if ( matchEmail && matchFoundPassword && !name.isBlank() && findAccount != null){
+		if ( matchEmail && matchFoundPassword && !name.isBlank() && findAccount == null){
 			generatedPassword = hashPassword(password);
 			Account newAccount = new Account(name, email, generatedPassword, 0);
 

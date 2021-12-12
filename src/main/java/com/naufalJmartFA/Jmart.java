@@ -1,6 +1,8 @@
 package com.naufalJmartFA;
 
 import java.util.Date;
+
+import com.naufalJmartFA.dbjson.JsonDBEngine;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,7 +14,9 @@ public class Jmart {
     public static long WAITING_CONF_LIMIT_MS = 4;
 
     public static void main(String[] args){
+        JsonDBEngine.Run(Jmart.class);
         SpringApplication.run(Jmart.class,args);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> JsonDBEngine.join()));
         // sesuaikan dengan lokasi di sistem anda kepada city.json
 //        String filepath = "/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json";
 
