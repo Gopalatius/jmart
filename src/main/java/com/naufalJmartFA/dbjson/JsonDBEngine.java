@@ -1,7 +1,5 @@
 package com.naufalJmartFA.dbjson;
 
-
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Collections;
@@ -70,7 +68,7 @@ public class JsonDBEngine
                 		// so the next instantiation can follow up the counter
                         if (!table.isEmpty() && Serializable.class.isAssignableFrom(value))
                         {
-                            Serializable serial = (Serializable) Collections.max((JsonTable<? extends Serializable>) table);
+                            Serializable serial = Collections.max((JsonTable<? extends Serializable>) table);
                             if (serial != null)
                                 Serializable.setClosingId((Class<? extends Serializable>) value, serial.id);
                         }

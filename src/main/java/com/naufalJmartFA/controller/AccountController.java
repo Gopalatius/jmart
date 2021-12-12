@@ -29,7 +29,7 @@ public class AccountController implements BasicGetController<Account>
 //	@JsonAutowired(filepath ="G:/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/a/b/AccountBaru.json", value = Account.class)
 //	public static JsonTable<Account> accountTable;
 //
-	@JsonAutowired(filepath ="D:\\OOP\\json", value = Account.class)
+	@JsonAutowired(filepath ="G:\\My Drive\\PC\\Kuliah\\Semester 3\\Pemrograman Berorientasi Objek\\Praktikum\\Testing\\jmart\\lib\\account.json", value = Account.class)
 	public static JsonTable<Account> accountTable;
 
 	public JsonTable<Account> getJsonTable(){
@@ -38,30 +38,18 @@ public class AccountController implements BasicGetController<Account>
 
 	@PostMapping("/login")
 	Account login(@RequestParam String email, @RequestParam String password){
-		String generatedPassword = null;
 
-		try{
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(password.getBytes());
-			byte[] bytes = md.digest();
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < bytes.length; i++){
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
-			}
-			generatedPassword = sb.toString();
-		}catch(NoSuchAlgorithmException e){
-			e.printStackTrace();
+		Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email == email);
+
+		final String generatedPassword = hashPassword(password);
+
+		if (findAccount != null && generatedPassword == findAccount.password){
+			return findAccount;
+		}else{
+			return null;
 		}
-		final String lambdaGeneratedPassword = generatedPassword;
-		return new Account("naufal",email, lambdaGeneratedPassword, 0);
-//		Account account = Algorithm.<Account>find(accountTable,var-> var.email==email &&
-//				var.password == lambdaGeneratedPassword);
-//
-//		if (account != null){
-//			return account;
-//		}else{
-//			return null;
-//		}
+
+
 	}
 
 
@@ -84,33 +72,14 @@ public class AccountController implements BasicGetController<Account>
 		Matcher matcherPassword = patternPassword.matcher(password);
 		boolean matchFoundPassword = matcherPassword.find();
 		Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email == email);
-//		Account temp = null;
-//		for (int i = 0; i < accountTable.size(); i++){
-//			temp = (Account) accountTable.get(i);
-//			if (temp.email == email)
-//				return null;
-//		}
 
-		String generatedPassword = null;
-		if ( matchEmail && matchFoundPassword && !name.isBlank()){
-			try{
-				MessageDigest md = MessageDigest.getInstance("MD5");
-				md.update(password.getBytes());
-				byte[] bytes = md.digest();
-				StringBuilder sb = new StringBuilder();
-				for (int i = 0; i < bytes.length; i++){
-					sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
-				}
-				generatedPassword = sb.toString();
-			}catch(NoSuchAlgorithmException e){
-				e.printStackTrace();
-			}
+		final String generatedPassword;
+		if ( matchEmail && matchFoundPassword && !name.isBlank() && findAccount != null){
+			generatedPassword = hashPassword(password);
 			Account newAccount = new Account(name, email, generatedPassword, 0);
 
 			accountTable.add(newAccount);
 			return newAccount;
-
-
 		}
 		return null;
 	}
@@ -121,19 +90,35 @@ public class AccountController implements BasicGetController<Account>
 			account.store = new Store(name, address, phoneNumber, 0);
 			return account.store;
 		}
-
 		return null;
 	}
 
 	@PostMapping("/{id}/topUp")
 	boolean topUp (@PathVariable int id, @RequestParam double balance){
 		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
-		if (account != null){
+		if (account != null && balance > 0){
 			account.balance += balance;
 			return true;
 		}else{
 			return false;
 		}
+	}
+
+	String hashPassword(String password){
+		String generatedPassword = null;
+		try{
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(password.getBytes());
+			byte[] bytes = md.digest();
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++){
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
+			}
+			generatedPassword = sb.toString();
+		}catch(NoSuchAlgorithmException e){
+			e.printStackTrace();
+		}
+		return generatedPassword;
 	}
 //	@GetMapping("/{id}")
 //	String getById(@PathVariable int id) { return "account id " + id + " not found!"; }
