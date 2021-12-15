@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/coupon")
 public class CouponController implements BasicGetController<Coupon> {
-    @JsonAutowired(value = Coupon.class,filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomProductList.json" )
+    @JsonAutowired(value = Coupon.class,filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/coupon.json" )
     public static JsonTable<Coupon> couponTable;
 
     public JsonTable<Coupon> getJsonTable(){

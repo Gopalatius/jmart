@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 public class ObjectPoolThread<T> extends Thread {
     private boolean exitSignal = false;
-    private Vector<T> objectPool;
+    private Vector<T> objectPool = new Vector<>();
     private Function<T, Boolean> routine;
 
     public ObjectPoolThread (String name, Function<T, Boolean> routine){

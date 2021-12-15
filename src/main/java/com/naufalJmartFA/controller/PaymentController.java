@@ -15,7 +15,7 @@ public class PaymentController implements BasicGetController<Payment> {
     public static final long ON_PROGRESS_LIMIT_MS = 3;
     public static final long WAITING_CONF_LIMIT_MS = 4;
 
-    @JsonAutowired(value = Account.class,filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/randomPaymentList.json" )
+    @JsonAutowired(value = Account.class,filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/payment.json" )
     public static JsonTable<Payment> paymentTable;
 
     public static ObjectPoolThread<Payment> poolThread;
@@ -113,6 +113,7 @@ public class PaymentController implements BasicGetController<Payment> {
         } else {
             return false;
         }
+        payment.history.add(temp2);
         return true;
     }
 }

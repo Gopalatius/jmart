@@ -29,7 +29,7 @@ public class AccountController implements BasicGetController<Account>
 //	@JsonAutowired(filepath ="G:/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/a/b/AccountBaru.json", value = Account.class)
 //	public static JsonTable<Account> accountTable;
 //
-	@JsonAutowired(filepath ="D:\\account.json", value = Account.class)
+	@JsonAutowired(filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/account.json", value = Account.class)
 	public static JsonTable<Account> accountTable;
 
 
@@ -40,11 +40,11 @@ public class AccountController implements BasicGetController<Account>
 	@PostMapping("/login")
 	Account login(@RequestParam String email, @RequestParam String password){
 
-		Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email == email);
+		Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email.equals(email));
 
 		final String generatedPassword = hashPassword(password);
 
-		if (findAccount != null && generatedPassword == findAccount.password){
+		if (findAccount != null && generatedPassword.equals(findAccount.password)){
 			return findAccount;
 		}else{
 			return null;
@@ -72,7 +72,7 @@ public class AccountController implements BasicGetController<Account>
 		Pattern patternPassword = Pattern.compile(REGEX_PASSWORD);
 		Matcher matcherPassword = patternPassword.matcher(password);
 		boolean matchFoundPassword = matcherPassword.find();
-		Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email == email);
+		Account findAccount = Algorithm.<Account> find(getJsonTable(),pred -> pred.email.equals(email));
 
 		final String generatedPassword;
 		if ( matchEmail && matchFoundPassword && !name.isBlank() && findAccount == null){
@@ -112,8 +112,8 @@ public class AccountController implements BasicGetController<Account>
 			md.update(password.getBytes());
 			byte[] bytes = md.digest();
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < bytes.length; i++){
-				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,16).substring(1));
+			for (byte aByte : bytes) {
+				sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
 			}
 			generatedPassword = sb.toString();
 		}catch(NoSuchAlgorithmException e){
