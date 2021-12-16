@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Class utama untuk menjalankan Spring.
+ * The main class to launch spring.
  * @author Muhammad Naufal Faza
  */
 @SpringBootApplication
@@ -18,8 +18,8 @@ public class Jmart {
     public static long WAITING_CONF_LIMIT_MS = 4;
 
     /**
-     * Class main untuk menjalankan spring.
-     * @param args sebuah parameter yang tidak digunakan karena tidak dijalankan menggunakan command line.
+     * Main function to launch spring
+     * @param args an unused parameter because the app isn't launched through the command line.
      */
     public static void main(String[] args){
         JsonDBEngine.Run(Jmart.class);
