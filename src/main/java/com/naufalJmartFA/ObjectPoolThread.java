@@ -6,6 +6,7 @@ import java.util.function.Function;
 /**
  * A poolthread class to run thread using multithreading.
  * @param <T> generic data types.
+ * @author Muhammad Naufal Faza
  */
 public class ObjectPoolThread<T> extends Thread {
     private boolean exitSignal = false;

@@ -1,6 +1,10 @@
 package com.naufalJmartFA;
 
-
+/**
+ * An unsued class
+ * @param <T>
+ * @param <U>
+ */
 public class Pair<T,U> {
     public T first;
     public U second;
