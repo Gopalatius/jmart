@@ -34,34 +34,34 @@ public class Jmart {
 //        }
 
     }
-    public static boolean paymentTimekeeper (Payment payment){
-        Date now = new Date();
-        int indexOfLastRecord = payment.history.size()-1;
-        Payment.Record temp = payment.history.get(indexOfLastRecord);
-        Payment.Record temp2 = new Payment.Record(null,null);
-
-
-        if (((temp.status == Invoice.Status.WAITING_CONFIRMATION) &&
-                (now.getTime() - temp.date.getTime() > WAITING_CONF_LIMIT_MS)) ||
-                ((temp.status == Invoice.Status.ON_PROGRESS) &&
-                        (now.getTime() - temp.date.getTime() > ON_PROGRESS_LIMIT_MS)))
-        {
-            temp2.status = Invoice.Status.FAILED;
-            temp2.message = "Waduh gagal!";
-        }else if((temp.status == Invoice.Status.ON_DELIVERY) && (now.getTime() -
-                temp.date.getTime() > ON_DELIVERY_LIMIT_MS)){
-            temp2.status = Invoice.Status.DELIVERED;
-            temp2.message = "Berhasil dikirim!";
-        } else if ((temp.status == Invoice.Status.DELIVERED) && (now.getTime() -
-                temp.date.getTime() > DELIVERED_LIMIT_MS)){
-            temp2.status = Invoice.Status.FINISHED;
-            temp2.message = "Selesai!";
-        } else {
-            return false;
-        }
-        payment.history.add(temp2);
-        return true;
-    }
+//    public static boolean paymentTimekeeper (Payment payment){
+//        Date now = new Date();
+//        int indexOfLastRecord = payment.history.size()-1;
+//        Payment.Record temp = payment.history.get(indexOfLastRecord);
+//        Payment.Record temp2 = new Payment.Record(null,null);
+//
+//
+//        if (((temp.status == Invoice.Status.WAITING_CONFIRMATION) &&
+//                (now.getTime() - temp.date.getTime() > WAITING_CONF_LIMIT_MS)) ||
+//                ((temp.status == Invoice.Status.ON_PROGRESS) &&
+//                        (now.getTime() - temp.date.getTime() > ON_PROGRESS_LIMIT_MS)))
+//        {
+//            temp2.status = Invoice.Status.FAILED;
+//            temp2.message = "Waduh gagal!";
+//        }else if((temp.status == Invoice.Status.ON_DELIVERY) && (now.getTime() -
+//                temp.date.getTime() > ON_DELIVERY_LIMIT_MS)){
+//            temp2.status = Invoice.Status.DELIVERED;
+//            temp2.message = "Berhasil dikirim!";
+//        } else if ((temp.status == Invoice.Status.DELIVERED) && (now.getTime() -
+//                temp.date.getTime() > DELIVERED_LIMIT_MS)){
+//            temp2.status = Invoice.Status.FINISHED;
+//            temp2.message = "Selesai!";
+//        } else {
+//            return false;
+//        }
+//        payment.history.add(temp2);
+//        return true;
+//    }
 //    public static List<Product> filterByAccountId (List<Product> list, int accountId, int page, int pageSize){
 //
 //        return Algorithm.<Product>paginate(list,page,pageSize,prod -> prod.accountId == accountId);

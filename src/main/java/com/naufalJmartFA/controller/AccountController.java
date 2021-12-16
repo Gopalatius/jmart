@@ -49,8 +49,6 @@ public class AccountController implements BasicGetController<Account>
 		}else{
 			return null;
 		}
-
-
 	}
 
 
@@ -86,7 +84,7 @@ public class AccountController implements BasicGetController<Account>
 	}
 	@PostMapping("/{id}/registerStore")
 	Store registerStore (@PathVariable int id, @RequestParam String name, @RequestParam String address, @RequestParam String phoneNumber){
-		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
+		Account account = Algorithm.<Account>find(getJsonTable(), acc -> id == acc.id);
 		if (account.store == null){
 			account.store = new Store(name, address, phoneNumber, 0);
 			return account.store;
@@ -96,7 +94,8 @@ public class AccountController implements BasicGetController<Account>
 
 	@PostMapping("/{id}/topUp")
 	boolean topUp (@PathVariable int id, @RequestParam double balance){
-		Account account = Algorithm.<Account>find(accountTable, acc -> id == acc.id);
+		System.out.println(id);
+		Account account = Algorithm.<Account>find(getJsonTable(), acc -> id == acc.id);
 		if (account != null && balance > 0){
 			account.balance += balance;
 			return true;
