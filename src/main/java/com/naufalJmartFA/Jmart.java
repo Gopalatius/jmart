@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Class utama untuk menjalankan Spring.
+ * @author Muhammad Naufal Faza
  */
 @SpringBootApplication
 public class Jmart {
