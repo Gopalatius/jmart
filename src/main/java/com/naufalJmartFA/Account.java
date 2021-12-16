@@ -5,6 +5,10 @@ import com.naufalJmartFA.dbjson.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Account object is an object to store the account
+ * of jmart users.
+ */
 public class Account extends Serializable
 {
     public static final String REGEX_EMAIL = 
@@ -16,7 +20,14 @@ public class Account extends Serializable
     public String password;
     public Store store;
     public double balance;
-    
+
+    /**
+     * Constructor to initialitize the instance variables.
+     * @param name is the name for the account owner
+     * @param email is the email for the account owner (credentials for login).
+     * @param password is the password of the account (credentials for login).
+     * @param balance is the amount of money the account has (to buy products).
+     */
     public Account(String name, String email, String password, double balance){
         this.name = name;
         this.email = email;
@@ -24,8 +35,12 @@ public class Account extends Serializable
         this.balance = balance;
         this.store = null;
     }
-    
 
+    /**
+     * A function to validate whether the email and the password is according to
+     * the regular expression.
+     * @return true if according to regular expression. Else, false.
+     */
     public boolean validate(){
         Pattern patternEmail = Pattern.compile(this.REGEX_EMAIL);
         Matcher matcherEmail = patternEmail.matcher(this.email);
@@ -38,6 +53,11 @@ public class Account extends Serializable
         return matchFoundEmail && matchFoundPassword;
         
     }
+
+    /**
+     * Convert the account to string.
+     * @return the formatted account that turned into String.
+     */
     public String toString(){
         return "name: "+name+"\nemail: "+email+"\npassword: "+password;
     }
