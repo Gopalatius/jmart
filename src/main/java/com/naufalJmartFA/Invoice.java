@@ -34,10 +34,9 @@ public abstract class Invoice extends Serializable
     public Rating rating;
 
     /**
-     * Constructor dari Invoice yang akan mengisi complaintId dengan -1, Rating.None, dan Date menjadi waktu ketika
-     * object payment nanti dibuat.
-     * @param buyerId id dari pembeli.
-     * @param productId id dari product.
+     * Constructor will assign complaintId with -1, Rating.None, dan Date as time when object is created.
+     * @param buyerId is the account Id of the buyer.
+     * @param productId is the Id of the product.
      */
     protected Invoice (int buyerId, int productId){
         this.buyerId = buyerId;
@@ -48,9 +47,9 @@ public abstract class Invoice extends Serializable
     }
 
     /**
-     * Sebuah fungsi abstract untuk mendapatkan harga total dari product.
-     * @param product product yang ingin diketahui harga totalnya.
-     * @return harga totalnya.
+     * To get how much must the buyer pay.
+     * @param product the product which the buyer wants to know the total pay.
+     * @return the total amount that needs to be paid.
      */
     public abstract double getTotalPay(Product product);
 }

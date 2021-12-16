@@ -3,6 +3,10 @@ package com.naufalJmartFA;
 import java.util.Vector;
 import java.util.function.Function;
 
+/**
+ * Sebuah pool untuk task yang dilaksanakan secara paralel.
+ * @param <T> tipe data bisa apapun karena generic.
+ */
 public class ObjectPoolThread<T> extends Thread {
     private boolean exitSignal = false;
     private Vector<T> objectPool = new Vector<>();
