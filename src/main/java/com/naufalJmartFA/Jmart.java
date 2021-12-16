@@ -6,6 +6,9 @@ import com.naufalJmartFA.dbjson.JsonDBEngine;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Class utama untuk menjalankan Spring.
+ */
 @SpringBootApplication
 public class Jmart {
     public static long DELIVERED_LIMIT_MS = 1;
@@ -13,6 +16,10 @@ public class Jmart {
     public static long ON_PROGRESS_LIMIT_MS = 3;
     public static long WAITING_CONF_LIMIT_MS = 4;
 
+    /**
+     * Class main untuk menjalankan spring.
+     * @param args sebuah parameter yang tidak digunakan karena tidak dijalankan menggunakan command line.
+     */
     public static void main(String[] args){
         JsonDBEngine.Run(Jmart.class);
         SpringApplication.run(Jmart.class,args);
