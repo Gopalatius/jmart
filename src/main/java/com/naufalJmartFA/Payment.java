@@ -5,6 +5,7 @@ import java.util.Date;
 
 /**
  * Class payment for the payment that has been done by the account.
+ * @author Muhammad Naufal Faza
  */
 public class Payment extends Invoice
 {
