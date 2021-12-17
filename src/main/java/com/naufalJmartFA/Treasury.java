@@ -1,7 +1,10 @@
 package com.naufalJmartFA;
 
 
-
+/**
+ * Class treasury to count discount price, admin fee, and adjusted price
+ * @author Muhammad Naufal Faza
+ */
 public class Treasury
 {
     public static final double COMMISSION_MULTIPLIER = 0.05d;
@@ -11,7 +14,12 @@ public class Treasury
     public static final double BOTTOM_FEE = 1000.0d;
 
 
-
+    /**
+     * Function to get discounted price according to the discount
+     * @param price The price of the product
+     * @param discount The discount that wanted to be applied to the product
+     * @return The discounted price
+     */
     public static double getDiscountedPrice(double price, double discount){
         if (discount > 100.0d){
             discount = 100.0d;
@@ -23,6 +31,12 @@ public class Treasury
         }
     }
 
+    /**
+     * Function to get admin fee
+     * @param price The price of the product
+     * @param discount The discount of the product
+     * @return The admin fee
+     */
     public static double getAdminFee(double price, double discount){
         if (getDiscountedPrice(price,discount) < BOTTOM_PRICE){
             return BOTTOM_FEE;
@@ -31,6 +45,12 @@ public class Treasury
         }
     }
 
+    /**
+     * Function to get the adjusted price because of the discount and the admin fee
+     * @param price The price of the product
+     * @param discount The discount of the product
+     * @return The discounted price + Admin fee
+     */
     public static double getAdjustedPrice(double price, double discount){
         return getDiscountedPrice(price, discount) + getAdminFee(price,discount);
     }
