@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
+/**
+ * Controller for payment
+ * @author Muhammad Naufal Faza
+ */
 @RestController
 @RequestMapping("/payment")
 public class PaymentController implements BasicGetController<Payment> {
@@ -20,11 +24,20 @@ public class PaymentController implements BasicGetController<Payment> {
 
     public static ObjectPoolThread<Payment> poolThread;
 
+    /**
+     * Getter for payment table
+     * @return paymentTable
+     */
     @GetMapping
     public JsonTable getJsonTable(){
         return paymentTable;
     }
 
+    /**
+     * Whether the payment is accepted or not
+     * @param id The payment ID
+     * @return true if accepted. Else, false
+     */
     @PostMapping("/{id}/accept")
     boolean accept (@PathVariable int id){
         Payment payment = Algorithm.<Payment>find(getJsonTable(),pred -> pred.id == id);
@@ -37,6 +50,12 @@ public class PaymentController implements BasicGetController<Payment> {
         }
         return false;
     }
+
+    /**
+     * Whether the payment can be cancelled
+     * @param id ID of the payment
+     * @return true if cancelled. Else, false.
+     */
     @PostMapping("/{id}/cancel")
     boolean cancel (@PathVariable int id){
         Payment payment = Algorithm.<Payment>find(getJsonTable(),pred -> pred.id == id);
@@ -49,6 +68,16 @@ public class PaymentController implements BasicGetController<Payment> {
         }
         return false;
     }
+
+    /**
+     * Create payment
+     * @param buyerId ID of the account
+     * @param productId ID of the product
+     * @param productCount How many products are there
+     * @param shipmentAddress Shipment address of the payment
+     * @param shipmentPlan What shipment plan to used
+     * @return Payment
+     */
     @PostMapping("/create")
     Payment create (@RequestParam int buyerId,
                     @RequestParam int productId,
@@ -74,6 +103,13 @@ public class PaymentController implements BasicGetController<Payment> {
         }
         return null;
     }
+
+    /**
+     * Submit payment
+     * @param id ID of the payment
+     * @param receipt Receipt of the payment
+     * @return true if submitted. Else, false
+     */
     @PostMapping("/{id}/submit")
     boolean submit(@PathVariable int id, @RequestParam String receipt){
         Payment payment = Algorithm.<Payment>find(getJsonTable(),pred -> pred.id == id);
@@ -87,6 +123,12 @@ public class PaymentController implements BasicGetController<Payment> {
         }
         return false;
     }
+
+    /**
+     * Time keeper for the payment
+     * @param payment the payment that wanted to be watch for the time
+     * @return true if timeKepeer succeded. Else, false
+     */
     @PostMapping("/timeKeeper")
     private static boolean timeKeeper ( @RequestParam Payment payment){
         Date now = new Date();
