@@ -9,11 +9,25 @@ import java.util.Collections;
 import java.util.Vector;
 import java.io.*;
 
+/**
+ * Class to read from Json
+ * @param <T> generic
+ * @author Netlab
+ */
 public class JsonTable<T> extends Vector<T>
 {
+    /**
+     * A gson so to read from Json.
+     */
     private static final Gson gson = new Gson();
     public final String filepath;
 
+    /**
+     * Constructor
+     * @param clazz the json file that can be assigned to a class
+     * @param filepath filepath of the json
+     * @throws IOException Input/Output exception.
+     */
     @SuppressWarnings("unchecked")
     public JsonTable(Class<T> clazz, String filepath) throws IOException
     {
@@ -28,11 +42,21 @@ public class JsonTable<T> extends Vector<T>
         catch (FileNotFoundException e) {}
     }
 
+    /**
+     * Write to Json
+     * @throws IOException Input/Output exception.
+     */
     public void writeJson() throws IOException
     {
         writeJson(this, this.filepath);
     }
 
+    /**
+     * Write to json
+     * @param object the object that want to be written to json
+     * @param filepath the filepath of where the json file is.
+     * @throws IOException Input/Output Exception.
+     */
     public static void writeJson(Object object, String filepath) throws IOException
     {
         File file = new File(filepath);
@@ -48,6 +72,14 @@ public class JsonTable<T> extends Vector<T>
         writer.close();
     }
 
+    /**
+     * Reading from json
+     * @param clazz what class does it expected to read
+     * @param filepath where the filepath of the json file
+     * @param <T> generic
+     * @return the variable that just been read from the json file
+     * @throws FileNotFoundException exception if the file is not found
+     */
     public static <T> T readJson(Class<T> clazz, String filepath) throws FileNotFoundException
     {
         final JsonReader reader = new JsonReader(new FileReader(filepath));
