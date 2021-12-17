@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the product
+ * @author Muhammad Naufal Faza
+ */
 @RestController
 @RequestMapping("/product")
 public class ProductController implements BasicGetController<Product>{
@@ -21,10 +25,26 @@ public class ProductController implements BasicGetController<Product>{
     @JsonAutowired(value = Product.class,filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/product.json" )
     public static JsonTable<Product> productTable;
 
+    /**
+     * getter for the productTable
+     * @return productTable
+     */
     public JsonTable<Product> getJsonTable(){
         return productTable;
     }
 
+    /**
+     * Create product
+     * @param accountId ID of the account
+     * @param name name of the product
+     * @param weight weight of the product
+     * @param conditionUsed whether the product is used or not
+     * @param price the price of the product
+     * @param discount discount of the product
+     * @param category category of the product
+     * @param shipmentPlans shipment plan of the product
+     * @return product if it is succesfully created
+     */
     @PostMapping("/create")
     Product create (@RequestParam int accountId,
                     @RequestParam String name,
@@ -38,6 +58,13 @@ public class ProductController implements BasicGetController<Product>{
         return new Product(accountId,name,weight,conditionUsed,price,discount,category,shipmentPlans);
     }
 
+    /**
+     * Getting the all the product according to store
+     * @param id ID of the product
+     * @param page page
+     * @param pageSize pagesize
+     * @return product
+     */
     @GetMapping("/{id}/store")
     List<Product> getProductByStore (@PathVariable int id,
                                      @RequestParam int page,
@@ -45,6 +72,18 @@ public class ProductController implements BasicGetController<Product>{
         return Algorithm.<Product>paginate(getJsonTable(),page,pageSize,pred -> pred.id ==
                 id);
     }
+
+    /**
+     * Gettign the product that is filtered according to the condition
+     * @param page page
+     * @param pageSize page size
+     * @param accountId the ID of the account
+     * @param search strings to be search
+     * @param minPrice minimum price
+     * @param maxPrice maximum price
+     * @param category category of the product
+     * @return List of all filtered product
+     */
     @GetMapping("/getProductFiltered")
     List<Product> getProductFiltered (@RequestParam int page,
                                      @RequestParam int pageSize,
@@ -55,7 +94,7 @@ public class ProductController implements BasicGetController<Product>{
                                       @RequestParam ProductCategory category){
         ArrayList<Product> list1 = (ArrayList<Product>) Algorithm.<Product>collect(getJsonTable(), pred -> pred.accountId == accountId &&
                 pred.category == category);
-        if (search == null){
+        if (search.isBlank()){
             return null;
         }
         search = search.toLowerCase();
