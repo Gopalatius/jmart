@@ -1,65 +1,84 @@
 package com.naufalJmartFA;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Comparator;
 
-
-
-
+/**
+ * Class Algorithm to filter, collect, find, count, and find min and max
+ * from a list.
+ * @author Muhammad Naufal Faza
+ */
 public class Algorithm {
+    /**
+     * Default constructor consists of nothing because all the methods are
+     * static.
+     */
     private Algorithm(){
-
     }
 
+    /**
+     * Filtering an array
+     * @param array The source of data that wants to be filtered.
+     * @param value Value that matches with the data that wanted to be filtered.
+     * @param <T> Generic
+     * @return A filtered list
+     */
     public static <T> List<T> collect (T[] array, T value){
-        List<T> list = new ArrayList<T>();
-        for (T i : array){
-            if (value.equals(i)){
-                list.add(i);
-            }
-        }
-        return list;
+        Predicate<T> predicate = value::equals;
+        return collect(Arrays.stream(array).iterator(), predicate);
     }
+    /**
+     * Filtering an iterable
+     * @param iterable The source of data that wants to be filtered.
+     * @param value Value that matches with the data that wanted to be filtered.
+     * @param <T> Generic
+     * @return A filtered list
+     */
     public static <T> List<T> collect (Iterable<T> iterable, T value){
-        List<T> list = new ArrayList<T>();
-        for (T i : iterable) {
-            if (value.equals(i)) {
-                list.add(i);
-            }
-        }
-        return list;
+        Predicate<T> predicate = value::equals;
+        return collect(iterable.iterator(), predicate);
     }
+    /**
+     * Filtering an iterator
+     * @param iterator The source of data that wants to be filtered.
+     * @param value Value that matches with the data that wanted to be filtered.
+     * @param <T> Generic
+     * @return A filtered list
+     */
     public static <T> List<T> collect (Iterator<T> iterator, T value){
-        List<T> list = new ArrayList<T>();
-        T obj = null;
-        while (iterator.hasNext()) {
-            obj = iterator.next();
-            if (value.equals(obj)) {
-                list.add(obj);
-            }
-        }
-        return list;
+        Predicate<T> predicate = value::equals;
+        return collect(iterator, predicate);
     }
+    /**
+     * Filtering an array
+     * @param array The source of data that wants to be filtered.
+     * @param pred boolean expression from the lambda expression.
+     * @param <T> Generic
+     * @return A filtered list
+     */
     public static <T> List<T> collect (T[] array, Predicate<T> pred){
-        List<T> list = new ArrayList<T>();
-        for (T i: array){
-            if (pred.predicate(i)){
-                list.add(i);
-            }
-        }
-        return list;
+        return collect(Arrays.stream(array).iterator(), pred);
     }
+    /**
+     * Filtering an iterable
+     * @param iterable The source of data that wants to be filtered.
+     * @param pred boolean expression from the lambda expression.
+     * @param <T> Generic
+     * @return A filtered list
+     */
     public static <T> List<T> collect (Iterable<T> iterable, Predicate<T> pred){
-        List<T> list = new ArrayList<T>();
-        for (T i: iterable){
-            if (pred.predicate(i)){
-                list.add(i);
-            }
-        }
-        return list;
+        return collect(iterable.iterator(), pred);
     }
+    /**
+     * Filtering an iterator
+     * @param iterator The source of data that wants to be filtered.
+     * @param pred boolean expression from the lambda expression.
+     * @param <T> Generic
+     * @return A filtered list
+     */
     public static <T> List<T> collect (Iterator<T> iterator, Predicate<T> pred){
         List<T> list = new ArrayList<T>();
         T obj;
@@ -72,53 +91,67 @@ public class Algorithm {
         return list;
     }
 
+    /**
+     * Counting how many value in an array
+     * @param array the source array
+     * @param value the value that wants to be counted
+     * @param <T> generic
+     * @return how many value are in the array
+     */
     public static <T> int count(T[] array, T value){
-        int counter = 0;
-        for (T i:array){
-            if (i == value){
-                counter++;
-            }
-        }
-        return counter;
+        Predicate<T> predicate = value::equals;
+        return count(Arrays.stream(array).iterator(), predicate);
     }
+    /**
+     * Counting how many value in an iterable.
+     * @param iterable the source iterable
+     * @param value the value that wants to be counted
+     * @param <T> generic
+     * @return how many value are in the iterable
+     */
     public static <T> int count(Iterable<T> iterable, T value){
-        int counter = 0;
-        for (T i:iterable){
-            if (i == value){
-                counter++;
-            }
-        }
-        return counter;
+        Predicate<T> predicate = value::equals;
+        return count(iterable.iterator(), predicate);
     }
+    /**
+     * Counting how many value in an iterator.
+     * @param iterator the source iterable
+     * @param value the value that wants to be counted
+     * @param <T> generic
+     * @return how many value are in the iterator
+     */
     public static <T> int count(Iterator<T> iterator, T value){
-        int counter = 0;
-        T obj = null;
-        while(iterator.hasNext()){
-            obj = iterator.next();
-            if (obj == value){
-                counter++;
-            }
-        }
-        return counter;
+        Predicate<T> predicate = value::equals;
+        return count(iterator, predicate);
     }
+
+    /**
+     * Counting how many value in an array.
+     * @param array the source array
+     * @param pred the boolean expression expressed in lambda expression.
+     * @param <T> generic
+     * @return how many value are in the array
+     */
     public static <T> int count(T[] array, Predicate<T> pred){
-        int counter = 0;
-        for (T i:array){
-            if (pred.predicate(i)) {
-                counter++;
-            }
-        }
-        return counter;
+        return count(Arrays.stream(array).iterator(), pred);
     }
+    /**
+     * Counting how many value in an iterable.
+     * @param iterable the source iterable.
+     * @param pred the boolean expression expressed in lambda expression.
+     * @param <T> generic
+     * @return how many value are in the iterable.
+     */
     public static <T> int count(Iterable<T> iterable, Predicate<T> pred){
-        int counter = 0;
-        for (T i:iterable){
-            if (pred.predicate(i)){
-                counter++;
-            }
-        }
-        return counter;
+        return count(iterable.iterator(), pred);
     }
+    /**
+     * Counting how many value in an iterator.
+     * @param iterator the source iterator.
+     * @param pred the boolean expression expressed in lambda expression.
+     * @param <T> generic
+     * @return how many value are in the iterator.
+     */
     public static <T> int count(Iterator<T> iterator, Predicate<T> pred){
         int counter = 0;
         while(iterator.hasNext()){
@@ -128,46 +161,67 @@ public class Algorithm {
         }
         return counter;
     }
+
+    /**
+     * Check whether value exists in an array.
+     * @param array the source array
+     * @param value the value that wants to be checked.
+     * @param <T> generic.
+     * @return true if the value exists. Else, false.
+     */
     public static <T> boolean exists(T[] array, T value){
-        for (T i: array){
-            if (i == value){
-                return true;
-            }
-        }
-        return false;
+        Predicate<T> predicate = value::equals;
+        return exists(Arrays.stream(array).iterator(), predicate);
     }
+    /**
+     * Check whether value exists in an iterable.
+     * @param iterable the source iterable
+     * @param value the value that wants to be checked.
+     * @param <T> generic.
+     * @return true if the value exists. Else, false.
+     */
     public static <T> boolean exists(Iterable<T> iterable, T value){
-        for (T i: iterable){
-            if (i == value){
-                return true;
-            }
-        }
-        return false;
+        Predicate<T> predicate = value::equals;
+        return exists(iterable.iterator(), predicate);
     }
+    /**
+     * Check whether value exists in an iterator.
+     * @param iterator the source iterator.
+     * @param value the value that wants to be checked.
+     * @param <T> generic.
+     * @return true if the value exists. Else, false.
+     */
     public static <T> boolean exists(Iterator<T> iterator, T value){
-        while (iterator.hasNext()){
-            if (value == iterator.next()){
-                return true;
-            }
-        }
-        return false;
+        Predicate<T> predicate = value::equals;
+        return exists(iterator, predicate);
     }
+    /**
+     * Check whether value exists in an array.
+     * @param array the source array
+     * @param pred the boolean expression expressed in lambda expression.
+     * @param <T> generic.
+     * @return true if the value exists. Else, false.
+     */
     public static <T> boolean exists(T [] array, Predicate<T> pred){
-        for (T i: array){
-            if (pred.predicate(i)){
-                return true;
-            }
-        }
-        return false;
+        return exists(Arrays.stream(array).iterator(), pred);
     }
+    /**
+     * Check whether value exists in an iterable.
+     * @param iterable the source iterable.
+     * @param pred the boolean expression expressed in lambda expression.
+     * @param <T> generic.
+     * @return true if the value exists. Else, false.
+     */
     public static <T> boolean exists(Iterable<T> iterable, Predicate<T> pred){
-        for (T i:iterable){
-            if(pred.predicate(i)){
-                return true;
-            }
-        }
-        return false;
+        return exists(iterable.iterator(), pred);
     }
+    /**
+     * Check whether value exists in an iterator.
+     * @param iterator the source iterator.
+     * @param pred the boolean expression expressed in lambda expression.
+     * @param <T> generic.
+     * @return true if the value exists. Else, false.
+     */
     public static <T> boolean exists(Iterator<T> iterator, Predicate<T> pred){
         while (iterator.hasNext()){
             if (pred.predicate(iterator.next())){
@@ -176,50 +230,67 @@ public class Algorithm {
         }
         return false;
     }
+
+    /**
+     * Find value inside an array.
+     * @param array the source array
+     * @param value the value that wants to be found.
+     * @param <T> generic
+     * @return return the founded value
+     */
     public static <T> T find (T[] array, T value){
-        for (T i: array){
-            if (i == value){
-                return i;
-            }
-        }
-        return null;
+        Predicate<T> predicate = value::equals;
+        return find(Arrays.stream(array).iterator(), predicate);
     }
+    /**
+     * Find value inside an iterable.
+     * @param iterable the source iterable
+     * @param value the value that wants to be found.
+     * @param <T> generic
+     * @return return the founded value
+     */
     public static <T> T find (Iterable<T> iterable, T value){
-        for (T i: iterable){
-            if (i == value){
-                return i;
-            }
-        }
-        return null;
+        Predicate<T> predicate = value::equals;
+        return find(iterable.iterator(), predicate);
     }
+    /**
+     * Find value inside an iterator.
+     * @param iterator the source iterator
+     * @param value the value that wants to be found.
+     * @param <T> generic
+     * @return return the founded value
+     */
     public static <T> T find (Iterator<T> iterator, T value){
-        T temp;
-        while (iterator.hasNext()){
-            temp = iterator.next();
-            if (value == temp){
-                return temp ;
-            }
-        }
-        return null;
+        Predicate<T> predicate = value::equals;
+        return find(iterator, predicate);
     }
+    /**
+     * Find value inside an array.
+     * @param array the source array
+     * @param pred boolean expression expressed in lambda expression.
+     * @param <T> generic
+     * @return return the founded value
+     */
     public static <T> T find (T[] array, Predicate<T> pred){
-        for (T i: array){
-            if (pred.predicate(i)){
-                return i;
-            }
-        }
-        return null;
+        return find(Arrays.stream(array).iterator(), pred);
     }
+    /**
+     * Find value inside an iterable.
+     * @param iterable the source iterable
+     * @param pred boolean expression expressed in lambda expression.
+     * @param <T> generic
+     * @return return the founded value
+     */
     public static <T> T find (Iterable<T> iterable, Predicate<T> pred){
-        if (iterable != null){
-            for (T i: iterable){
-                if (pred.predicate(i)){
-                    return i;
-                }
-            }
-        }
-        return null;
+        return find(iterable.iterator(), pred);
     }
+    /**
+     * Find value inside an iterable.
+     * @param iterator the source iterable
+     * @param pred boolean expression expressed in lambda expression.
+     * @param <T> generic
+     * @return return the founded value
+     */
     public static <T> T find (Iterator<T> iterator, Predicate<T> pred){
         T temp;
         while (iterator.hasNext()){
@@ -230,6 +301,14 @@ public class Algorithm {
         }
         return null;
     }
+
+    /**
+     * Find maximum from two value
+     * @param first the first value
+     * @param second the second value
+     * @param <T> generic
+     * @return which value is greater
+     */
     public static <T extends Number> T max (T first, T second){
         if (first.doubleValue() > second.doubleValue()){
             return first;
@@ -237,30 +316,32 @@ public class Algorithm {
             return second;
         }
     }
-    public static <T extends Number> T max (T[] array){
-        T terbesar = array[0];
-        for (T i : array){
-            if (i.doubleValue() > terbesar.doubleValue()){
-                terbesar = i;
-            }
-        }
-        return terbesar;
-    }
-    public static <T extends Number> T max (Iterable<T> iterable) {
-        boolean flag = false;
-        T terbesar = null;
-        for (T i : iterable) {
-            if (!flag) {
-                flag = true;
-                terbesar = i;
-            } else if (i.doubleValue() > terbesar.doubleValue()) {
-                terbesar = i;
-            }
-        }
-        return terbesar;
-    }
-    public static <T extends Number> T max (Iterator<T> iterator) {
 
+    /**
+     * Find maximum value from an array
+     * @param array the source array
+     * @param <T> generic
+     * @return  the maximum value
+     */
+    public static <T extends Number> T max (T[] array){
+        return max(Arrays.stream(array).iterator());
+    }
+    /**
+     * Find maximum value from an iterable
+     * @param iterable the source iterable
+     * @param <T> generic
+     * @return the maximum value
+     */
+    public static <T extends Number> T max (Iterable<T> iterable) {
+        return max(iterable.iterator());
+    }
+    /**
+     * Find maximum value from an iterator
+     * @param iterator the source iterator
+     * @param <T> generic
+     * @return the maximum value
+     */
+    public static <T extends Number> T max (Iterator<T> iterator) {
         T terbesar = null;
         T temp;
         for (int counter = 0; iterator.hasNext(); counter++){
@@ -273,8 +354,16 @@ public class Algorithm {
         }
         return terbesar;
     }
-    public static <T extends Number> T max (T first, T second, Comparator<?super T> comparator) {
 
+    /**
+     * Find maximum value from an two value
+     * @param first the first value
+     * @param second the second value
+     * @param comparator the comparator object
+     * @param <T> generic
+     * @return the maximum value
+     */
+    public static <T extends Number> T max (T first, T second, Comparator<?super T> comparator) {
         if (comparator.compare(first,second) > 0){
             return first;
         }else{
@@ -282,31 +371,34 @@ public class Algorithm {
         }
 
     }
+    /**
+     * Find maximum from array using comparator
+     * @param array the source array
+     * @param comparator the comparator object
+     * @param <T> generic
+     * @return the maximum value
+     */
     public static <T extends Number> T max (T[] array, Comparator<?super T> comparator) {
-
-        T terbesar = array[0];
-        for (T i:array){
-            if (comparator.compare(i,terbesar)>0){
-                terbesar = i;
-            }
-        }
-        return terbesar;
+        return max(Arrays.stream(array).iterator(),comparator);
     }
+    /**
+     * Find maximum from iterable using comparator
+     * @param iterable the source iterable
+     * @param comparator the comparator object
+     * @param <T> generic
+     * @return the maximum value
+     */
     public static <T extends Number> T max (Iterable<T> iterable, Comparator<?super T> comparator) {
-        boolean flag = false;
-        T terbesar = null;
-        for (T i : iterable) {
-            if (!flag) {
-                flag = true;
-                terbesar = i;
-            } else if (comparator.compare(i,terbesar) > 0) {
-                terbesar = i;
-            }
-        }
-        return terbesar;
+        return max(iterable.iterator(), comparator);
     }
+    /**
+     * Find maximum from iterable using comparator
+     * @param iterator the source iterator
+     * @param comparator the comparator object
+     * @param <T> generic
+     * @return the maximum value
+     */
     public static <T extends Number> T max (Iterator<T> iterator, Comparator<?super T> comparator) {
-
         T terbesar = null;
         T temp;
         for (int counter = 0; iterator.hasNext(); counter++){
@@ -320,6 +412,13 @@ public class Algorithm {
         return terbesar;
     }
 
+    /**
+     * Find the minimum value from two value
+     * @param first the first value
+     * @param second the second value
+     * @param <T> generic
+     * @return the minimum value
+     */
     public static <T extends Number> T min (T first, T second){
         if (first.doubleValue() < second.doubleValue()){
             return first;
@@ -327,31 +426,31 @@ public class Algorithm {
             return second;
         }
     }
-
+    /**
+     * Find the minimum value from array
+     * @param array the array source
+     * @param <T> generic
+     * @return the minimum value
+     */
     public static <T extends Number> T min (T[] array){
-        T terkecil = array[0];
-        for (T i : array){
-            if (i.doubleValue() < terkecil.doubleValue()){
-                terkecil = i;
-            }
-        }
-        return terkecil;
+        return min(Arrays.stream(array).iterator());
     }
+    /**
+     * Find the minimum value from iterable
+     * @param iterable the iterable source
+     * @param <T> generic
+     * @return the minimum value
+     */
     public static <T extends Number> T min (Iterable<T> iterable) {
-        boolean flag = false;
-        T terkecil = null;
-        for (T i : iterable) {
-            if (!flag) {
-                flag = true;
-                terkecil = i;
-            } else if (i.doubleValue() < terkecil.doubleValue()) {
-                terkecil = i;
-            }
-        }
-        return terkecil;
+        return min(iterable.iterator());
     }
+    /**
+     * Find the minimum value from iterable
+     * @param iterator the iterator
+     * @param <T> generic
+     * @return the minimum value
+     */
     public static <T extends Number> T min (Iterator<T> iterator) {
-
         T terkecil = null;
         T temp;
         for (int counter = 0; iterator.hasNext(); counter++){
@@ -364,6 +463,14 @@ public class Algorithm {
         }
         return terkecil;
     }
+    /**
+     * find the minimum of two value using comparator
+     * @param first the first value
+     * @param second the second value
+     * @param comparator the comparator object
+     * @param <T> generic
+     * @return
+     */
     public static <T extends Number> T min (T first, T second, Comparator<?super T> comparator) {
 
         T terkecil;
@@ -374,21 +481,36 @@ public class Algorithm {
         }
 
     }
-    public static <T extends Number> T min (Iterable<T> iterable, Comparator<?super T> comparator) {
-        boolean flag = false;
-        T terkecil = null;
-        for (T i : iterable) {
-            if (!flag) {
-                flag = true;
-                terkecil = i;
-            } else if (comparator.compare(i,terkecil) < 0) {
-                terkecil = i;
-            }
-        }
-        return terkecil;
-    }
-    public static <T extends Number> T min (Iterator<T> iterator, Comparator<?super T> comparator) {
 
+    /**
+     * Finding minimum value using comparator of an array
+     * @param array the source array
+     * @param comparator the comparator object
+     * @param <T> generic
+     * @return the minimum value
+     */
+    public static <T extends Number> T min (T[] array, Comparator<?super T> comparator) {
+        return min(Arrays.stream(array).iterator(), comparator);
+    }
+    /**
+     * Finding minimum value using comparator of an iterable
+     * @param iterable the source iterable
+     * @param comparator the comparator object
+     * @param <T> generic
+     * @return the minimum value
+     */
+    public static <T extends Number> T min (Iterable<T> iterable, Comparator<?super T> comparator) {
+        return min(iterable.iterator(), comparator);
+    }
+
+    /**
+     * Finding minimum value using comparator of an iterator
+     * @param iterator the source iterator
+     * @param comparator the comparator object
+     * @param <T> generic
+     * @return the minimum value
+     */
+    public static <T extends Number> T min (Iterator<T> iterator, Comparator<?super T> comparator) {
         T terkecil = null;
         T temp;
         for (int counter = 0; iterator.hasNext(); counter++){
@@ -401,38 +523,40 @@ public class Algorithm {
         }
         return terkecil;
     }
+
+    /**
+     * filter the list and paginate
+     * @param array the source array
+     * @param page page
+     * @param pageSize pagesize
+     * @param pred boolean expression expressed in lambda expression
+     * @param <T> generic
+     * @return filtered and paginated list
+     */
     public static <T> List<T> paginate (T[] array, int page, int pageSize, Predicate<T> pred){
-        List<List<T>> newList = new ArrayList<List<T>>();
-        List<T> filteredList = new ArrayList<T>();
-        for (T i: array){
-            if (pred.predicate(i)){
-                filteredList.add(i);
-            }
-        }
-        for (int i = 0; i < filteredList.size(); i += pageSize){
-            newList.add(new ArrayList<T>(filteredList.subList
-                    (i, Math.min(filteredList.size(), i + pageSize))));
-
-        }
-
-        return newList.get(page);
+        return paginate(Arrays.stream(array).iterator(), page, pageSize, pred);
     }
+    /**
+     * filter the list and paginate
+     * @param iterable the source iterable
+     * @param page page
+     * @param pageSize pagesize
+     * @param pred boolean expression expressed in lambda expression
+     * @param <T> generic
+     * @return filtered and paginated list
+     */
     public static <T> List<T> paginate (Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
-        List<List<T>> newList = new ArrayList<List<T>>();
-        List<T> filteredList = new ArrayList<T>();
-        for (T i: iterable){
-            if (pred.predicate(i)){
-                filteredList.add(i);
-            }
-        }
-        for (int i = 0; i < filteredList.size(); i += pageSize){
-            newList.add(new ArrayList<T>(filteredList.subList
-                    (i, Math.min(filteredList.size(), i + pageSize))));
-
-        }
-
-        return newList.get(page);
+        return paginate(iterable.iterator(), page, pageSize, pred);
     }
+    /**
+     * filter the list and paginate
+     * @param iterator the source iterator
+     * @param page page
+     * @param pageSize pagesize
+     * @param pred boolean expression expressed in lambda expression
+     * @param <T> generic
+     * @return filtered and paginated list
+     */
     public static <T> List<T> paginate (Iterator<T> iterator, int page, int pageSize, Predicate<T> pred){
         List<List<T>> newList = new ArrayList<List<T>>();
         List<T> filteredList = new ArrayList<T>();
@@ -448,7 +572,6 @@ public class Algorithm {
                     (i, Math.min(filteredList.size(), i + pageSize))));
 
         }
-
         return newList.get(page);
     }
 }
