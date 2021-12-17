@@ -15,6 +15,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controller for Account
+ * @author Muhammad Naufal Faza
+ */
 @RestController
 @RequestMapping("/account")
 public class AccountController implements BasicGetController<Account>
@@ -32,11 +36,20 @@ public class AccountController implements BasicGetController<Account>
 	@JsonAutowired(filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/account.json", value = Account.class)
 	public static JsonTable<Account> accountTable;
 
-
+	/**
+	 * getter for accountTable
+	 * @return accountTable
+	 */
 	public JsonTable<Account> getJsonTable(){
 		return accountTable;
 	}
 
+	/**
+	 * Post method for login
+	 * @param email the email of the account user
+	 * @param password the password of the account user
+	 * @return account with matching email and password
+	 */
 	@PostMapping("/login")
 	Account login(@RequestParam String email, @RequestParam String password){
 
@@ -54,7 +67,14 @@ public class AccountController implements BasicGetController<Account>
 
 //	@GetMapping
 //	String index() { return "account page"; }
-	
+
+	/**
+	 * Post method for registration
+	 * @param name name of the account user
+	 * @param email email of the account user
+	 * @param password password of the account user
+	 * @return Account of newly created account
+	 */
 	@PostMapping("/register")
 	Account register
 	(
@@ -82,6 +102,15 @@ public class AccountController implements BasicGetController<Account>
 		}
 		return null;
 	}
+
+	/**
+	 * Post Method to register the store
+	 * @param id ID of the account user
+	 * @param name name of the store
+	 * @param address address of the store
+	 * @param phoneNumber phone number of the store
+	 * @return the store
+	 */
 	@PostMapping("/{id}/registerStore")
 	Store registerStore (@PathVariable int id, @RequestParam String name, @RequestParam String address, @RequestParam String phoneNumber){
 		Account account = Algorithm.<Account>find(getJsonTable(), acc -> id == acc.id);
@@ -92,6 +121,12 @@ public class AccountController implements BasicGetController<Account>
 		return null;
 	}
 
+	/**
+	 * Post Method to topUp the balance of the account
+	 * @param id the ID of the account
+	 * @param balance the balance that wants to be topped up
+	 * @return true if topup success. Else, false.
+	 */
 	@PostMapping("/{id}/topUp")
 	boolean topUp (@PathVariable int id, @RequestParam double balance){
 		Account account = Algorithm.<Account>find(getJsonTable(), acc -> id == acc.id);
@@ -103,6 +138,11 @@ public class AccountController implements BasicGetController<Account>
 		}
 	}
 
+	/**
+	 * Password hash method to hash password in register and login.
+	 * @param password the password of the user account.
+	 * @return hashed password
+	 */
 	String hashPassword(String password){
 		String generatedPassword = null;
 		try{
