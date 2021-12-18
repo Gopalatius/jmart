@@ -22,7 +22,7 @@ public class PaymentController implements BasicGetController<Payment> {
     @JsonAutowired(value = Account.class,filepath ="/My Drive/PC/Kuliah/Semester 3/Pemrograman Berorientasi Objek/Praktikum/Testing/jmart/lib/payment.json" )
     public static JsonTable<Payment> paymentTable;
 
-    public static ObjectPoolThread<Payment> poolThread;
+    public static ObjectPoolThread<Payment> poolThread = new ObjectPoolThread<Payment>("",PaymentController::timeKeeper);
 
     /**
      * Getter for payment table
